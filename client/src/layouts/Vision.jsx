@@ -1,5 +1,5 @@
 import React from "react";
-import { landingPage } from "../../../data/data";
+import { landingPage } from "../data/data";
 
 const Vision = () => {
   const visionAndMission = landingPage.visionAndMission;
@@ -12,13 +12,13 @@ const Vision = () => {
         return (
           <div
             key={i}
-            className="flex flex-row-reverse items-center gap-14 w-[65%] bg-white mb-16 p-8 shadow-lg rounded [&:nth-child(2)]:ml-auto
+            className="flex flex-row-reverse items-center gap-4 w-[65%] bg-white mb-16 p-8 shadow-lg rounded [&:nth-child(2)]:ml-auto
                                   lg:gap-4 md:flex-col md:m-auto md:w-[85%]"
           >
             <img
               src={item.img}
               alt={item.title}
-              className="h-[90px] w-auto lg:h-[160px]"
+              className="h-[90px] w-auto"
             />
             <div>
               <h1

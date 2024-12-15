@@ -1,17 +1,15 @@
 import React from 'react'
-import Home from './components/pages/Home/Home';
-// import { BrowserRouter as Router } from 'react-router-dom'
-// import { AuthWrapper } from './auth/AuthWrapper'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { AuthWrapper } from './auth/Authwrapper';
 
 
 const App = () => {
 
   return (
     <>
-      {/* <Router>
+      <Router>
         <AuthWrapper />
-      </Router> */}
-      <Home />
+      </Router>
     </>
 
   )

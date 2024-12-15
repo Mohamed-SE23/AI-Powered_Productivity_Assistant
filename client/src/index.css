@@ -25,6 +25,10 @@
   .container {
     @apply w-full px-8;
   }
+  /*** pages container ***/
+  .page-container {
+    @apply mt-[9vh];
+  }
 
   .bg-theme-cart {
     @apply bg-gradient-to-b from-[#ff7a57] 

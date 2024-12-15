@@ -1,5 +1,5 @@
 import React from 'react';
-import { landingPage } from '../../../data/data';
+import { landingPage } from '../data/data';
 
 const Features = () => {
     const features = landingPage.Features;
