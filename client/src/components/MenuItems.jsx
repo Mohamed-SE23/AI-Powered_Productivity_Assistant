@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 const MenuItems = ({ r, navState }) => {
     const user = { name: "mohamed", userId: "4522" };
-    console.log(r)
 
     return (
         <>

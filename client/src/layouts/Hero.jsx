@@ -37,8 +37,8 @@ const Hero = () => {
         {/* Button */}
         <button
           onClick={handleGetStart}
-          className="px-4 py-1.5 text-lg font-semibold text-white bg-[#2596DD] rounded-full shadow-lg 
-                     transition-transform transform hover:scale-105 hover:bg-[#1DD4CB] hover:shadow-xl"
+          className="px-4 py-1.5 text-lg font-semibold text-white border-2 rounded-full shadow-lg 
+                     transition-transform transform hover:scale-105 hover:border-[#1dd4cb] hover:text-[#1dd4cb] hover:shadow-xl"
         >
           Get Started
         </button>

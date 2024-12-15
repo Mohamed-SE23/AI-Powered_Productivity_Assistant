@@ -1,5 +1,6 @@
 import React from 'react';
 import founder from '../../assets/founder1.jpg'
+import Footer from '../../layouts/Footer';
 
 const About = () => {
     const team = [
@@ -12,6 +13,7 @@ const About = () => {
     ];
 
     return (
+      <>
         <div className="container page-container bg-[#f5f5f5] mx-auto px-6 py-12 space-y-16">
             {/* Section Heading */}
             <div className="text-center space-y-4">
@@ -106,6 +108,8 @@ const About = () => {
                 </div>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 

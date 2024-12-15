@@ -41,10 +41,14 @@ export const nav = [
         isPrivate: false,
       },
     {
-        path: "/dashboard",
+        path: "/:userId/dashboard",
         name: "Dashboard",
         element: <Dashboard />,
         isMenu: false,
         isPrivate: true,
       },
+]
+
+export const dashboardOutlets = [
+
 ]
