@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       // Proxy API requests to the Flask backend
       '/api': {
-        target: 'http://127.0.0.1:5001',  // Flask backend URL
+        target: 'http://127.0.0.1:5000',  // Flask backend URL
         // target: 'https://api.techstoreplatform.tech/',  // Flask backend URL
         changeOrigin: true,
         secure: false,

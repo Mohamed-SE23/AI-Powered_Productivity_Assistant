@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +13,7 @@ const Signup = () => {
     });
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     // validate
@@ -34,13 +37,36 @@ const Signup = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Validation
         if (validate()) {
-            // send data to server
-        }
+            const data = new FormData();
+            data.append('username', formData.username);
+            data.append('email', formData.email);
+            data.append('password', formData.password);
+      
+            setLoading(true); // Start loading
+      
+            try {
+              const response = await axios.post('/api/v1/signup', data, {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Access-Control-Allow-Origin': '*',
+                },
+              })
+              setLoading(false); // end loading
+              console.log('Form submitted successfully:', response);
+              toast.success(`${response.data.message}`);
+              navigate('/signin');
+      
+            } catch (error) {
+              setLoading(false); // end loading
+              toast.error(`Error submitting form:, ${error.response?.data || error.message}`);
+              console.log('Error submitting form:', error.response?.data || error.message);
+            }
+          }
     };
 
     return (
@@ -105,15 +131,17 @@ const Signup = () => {
                         <button
                             type="button"
                             onClick={() => navigate("/")}
+                            disabled={loading}
                             className="w-full bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400"
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
+                            disabled={loading}
                             className="w-full bg-[#007bff] text-white py-2 px-4 rounded-lg hover:bg-[#0056b3]"
                         >
-                            Sign Up
+                            {loading ? '...Signing up' : 'Sign Up'}
                         </button>
                     </div>
                 </form>
