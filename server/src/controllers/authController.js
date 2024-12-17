@@ -1,5 +1,6 @@
-import { createUser } from '../services/authService.js';
+import { createUser, loginUser } from '../services/authService.js';
 
+// Creating a new user
 export const signup = async (req, res) => {
   try {
     const { username, email, password, profile_pic } = req.body;
@@ -29,5 +30,29 @@ export const signup = async (req, res) => {
     });
   } catch (error) {
     return res.status(400).json({ message: error.message });
+  }
+};
+
+// User sign in controller
+export const signin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validate input
+    if (!email || !password) {
+      return res.status(400).json({ message: 'All fields are required.' });
+    }
+
+    // Authenticate user and get the token
+    const { token, user } = await loginUser({ email, password });
+
+    // Respond with the token and user info
+    return res.status(200).json({
+      message: 'Login successful.',
+      token,
+      user: { id: user._id, username: user.username, email: user.email },
+    });
+  } catch (error) {
+    return res.status(401).json({ message: error.message });
   }
 };

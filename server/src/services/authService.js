@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import redisClient from '../config/redis.js';
 
@@ -34,6 +35,34 @@ export const createUser = async ({ username, email, password, profile_pic }) => 
     await redisClient.set(email, JSON.stringify(savedUser), { EX: 3600 }); // Cache for 1 hour
 
     return savedUser;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+// user login 
+export const loginUser = async ({ email, password }) => {
+  try {
+    // Find the user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Error('Invalid credentials.');
+    }
+
+    // Compare the provided password with the hashed password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      throw new Error('Invalid credentials.');
+    }
+
+    // Generate a JWT
+    const token = jwt.sign(
+      { id: user._id, username: user.username, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' } // Token valid for 1 hour
+    );
+
+    return { token, user };
   } catch (error) {
     throw new Error(error.message);
   }
