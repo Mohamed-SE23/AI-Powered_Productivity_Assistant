@@ -4,6 +4,8 @@ import About from "../pages/About/About";
 import Signin from "../pages/signin/Signin";
 import Signup from "../pages/signup/Signup";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import Profile from "../pages/profile/Profile";
+import Notifications from "../pages/notifications/Notifications";
 
 // const Home = lazy(() => import("../pages/Home/Home"));
 // const About = lazy(() => import("../pages/About/About"));
@@ -44,6 +46,20 @@ export const nav = [
         path: "/:userId/dashboard",
         name: "Dashboard",
         element: <Dashboard />,
+        isMenu: false,
+        isPrivate: true,
+      },
+    {
+        path: "/:userId/profile",
+        name: "Profile",
+        element: <Profile />,
+        isMenu: false,
+        isPrivate: true,
+      },
+    {
+        path: "/:userId/notifications",
+        name: "Notifications",
+        element: <Notifications />,
         isMenu: false,
         isPrivate: true,
       },

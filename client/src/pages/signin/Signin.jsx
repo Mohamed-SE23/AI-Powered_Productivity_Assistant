@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser, setUserAuthenticated } from "../../app/UserInfo";
 
 const Signin = () => {
     const [formData, setFormData] = useState({
@@ -9,7 +13,9 @@ const Signin = () => {
     });
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // validate
     const validate = () => {
@@ -30,13 +36,37 @@ const Signin = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Validation
         if (validate()) {
-            // send data to server
-        }
+            const data = {
+                email: formData.email,
+                password: formData.password,
+            };
+      
+            setLoading(true); // Start loading
+      
+            try {
+              const response = await axios.post('/api/v1/signin', data, {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Access-Control-Allow-Origin': '*',
+                },
+              })
+              setLoading(false); // end loading
+              dispatch(setUser(response.data.user));
+              dispatch(setUserAuthenticated(true));
+              console.log('User is logged in successfully:', response);
+              navigate(`/${response.data.user.id}/dashboard`);
+      
+            } catch (error) {
+              setLoading(false); // end loading
+              toast.error(`${error.response.data.message}`);
+              console.log('Error submitting form:', error);
+            }
+          }
     };
 
     return (
@@ -79,15 +109,17 @@ const Signin = () => {
                         <button
                             type="button"
                             onClick={() => navigate("/")}
+                            disabled={loading}
                             className="w-full bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400"
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
+                            disabled={loading}
                             className="w-full bg-[#007bff] text-white py-2 px-4 rounded-lg hover:bg-[#0056b3]"
                         >
-                            Sign in
+                            {loading ? "Signing..." : "Sign in"}
                         </button>
                     </div>
                 </form>

@@ -46,7 +46,7 @@ export const loginUser = async ({ email, password }) => {
     // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
-      throw new Error('Invalid credentials.');
+      throw new Error('User not found.');
     }
 
     // Compare the provided password with the hashed password
@@ -61,6 +61,10 @@ export const loginUser = async ({ email, password }) => {
       process.env.JWT_SECRET,
       { expiresIn: '1h' } // Token valid for 1 hour
     );
+
+    if (!process.env.JWT_SECRET) {
+      throw new Error('JWT_SECRET is missing in environment variables');
+    }
 
     return { token, user };
   } catch (error) {

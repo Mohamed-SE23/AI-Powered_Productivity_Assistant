@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { nav } from "./nav";
 import MenuItems from "./MenuItems";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../app/UserInfo";
+import AuthHeader from './AuthHeader';
 
 const Navbar = () => {
   const [navState, setNavState] = useState(false);
   const location = useLocation();
-  const user = { name: "myName", isAuth: false };
+  const user = useSelector(selectCurrentUser);
 
   const onNavScroll = () => {
     if (window.scrollY > 30) {
@@ -33,7 +36,7 @@ const Navbar = () => {
         className={
           !navState
             ? "absolute top-7 left-0 right-0 z-[200]"
-            : "fixed top-0 left-0 right-0 h-[9vh] flex items-center justify-center z-[200] bg-white"
+            : "fixed top-0 left-0 right-0 h-[9vh] flex items-center justify-center border-b z-[200] bg-white"
         }
       >
         <nav className="flex items-center justify-between container">
@@ -41,9 +44,7 @@ const Navbar = () => {
             AI<span className="text-[#1DD4CB]">-PPA</span>
           </div>
         {user.isAuth ? 
-        <div>
-            profile
-        </div>
+        <AuthHeader />
         :
         <ul className="flex items-center justify-center gap-4">
         {nav

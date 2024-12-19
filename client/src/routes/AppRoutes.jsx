@@ -1,9 +1,11 @@
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { nav } from "../components/nav";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../app/UserInfo";
 
 export const RenderRoutes = () => {
-    const user = { name: "mohamed", isAuth: true }; // Example user object
+    const user = useSelector(selectCurrentUser);
     const location = useLocation();
 
     return (
