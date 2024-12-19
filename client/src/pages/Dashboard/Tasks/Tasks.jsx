@@ -1,9 +1,10 @@
 import React from 'react'
+import AllTasks from './AllTasks';
 
 const Tasks = () => {
   return (
     <div>
-      This is tasks page
+      <AllTasks />
     </div>
   )
 }

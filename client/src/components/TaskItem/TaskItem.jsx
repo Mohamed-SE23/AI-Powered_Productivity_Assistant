@@ -1,8 +1,10 @@
 import React from "react";
 import { FaRegEdit, FaRegTrashAlt, FaRegCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { deleteTask } from "../../app/tasksSlice";
 
-const TaskItem = ({ task, getTask, openModalForEdit, deleteTask }) => {
+const TaskItem = ({ task, openModalForEdit }) => {
   const getPriorityColor = (priority) => {
     switch (priority) {
       case "low":
@@ -15,6 +17,15 @@ const TaskItem = ({ task, getTask, openModalForEdit, deleteTask }) => {
         return "text-gray-500";
     }
   };
+  const dispatch = useDispatch();
+  
+  const deleteTaskHandler = (id) => {
+    dispatch(deleteTask(id));
+  }
+
+  const getTaskHandler = (id) => {
+    dispatch()
+  }
 
   return (
     <motion.div
@@ -41,7 +52,7 @@ const TaskItem = ({ task, getTask, openModalForEdit, deleteTask }) => {
           <button
             className="text-[#00A1F1]"
             onClick={() => {
-              getTask(task._id);
+              getTaskHandler(task._id);
               openModalForEdit(task);
             }}
           >
@@ -50,7 +61,7 @@ const TaskItem = ({ task, getTask, openModalForEdit, deleteTask }) => {
           <button
             className="text-[#F65314]"
             onClick={() => {
-              deleteTask(task._id);
+              deleteTaskHandler(task._id);
             }}
           >
             <FaRegTrashAlt />
@@ -59,6 +70,6 @@ const TaskItem = ({ task, getTask, openModalForEdit, deleteTask }) => {
       </div>
     </motion.div>
   );
-}
+};
 
 export default TaskItem;

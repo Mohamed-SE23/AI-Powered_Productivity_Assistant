@@ -2,28 +2,26 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { container, item } from '../../../utils/animation';
-import { selectAllTasks, selectPriority, setModalMode, setPriority } from '../../../app/tasksSlice';
+import { fetchTasks, selectAllTasks, selectPriority, setModalMode, setPriority } from '../../../app/tasksSlice';
 import { filteredTasks, openModalForAdd } from '../../../utils/utilities';
 import Filters from '../../../components/Filters/Filters';
 import TaskItem from '../../../components/TaskItem/TaskItem';
 
-const Completed = () => {
+const AllTasks = () => {
     const dispatch = useDispatch();
     const tasks = useSelector(selectAllTasks);
     const priority = useSelector(selectPriority);
-
-    const completedTasks = tasks?.filter((task) => task.completed);
-
-    const filtered = filteredTasks(completedTasks, priority);
+    const filtered = filteredTasks(tasks, priority);
 
     useEffect(() => {
         dispatch(setPriority("all"));
+        dispatch(fetchTasks());
     }, []);
 
     return (
         <main className="h-full">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold">Completed Tasks</h1>
+            <h1 className="text-2xl font-bold">All Tasks</h1>
             <Filters />
           </div>
     
@@ -33,7 +31,7 @@ const Completed = () => {
             initial="hidden"
             animate="visible"
           >
-            {completedTasks.length > 0 && filtered?.map((task, i) => (
+            {tasks.length > 0 && filtered?.map((task, i) => (
               <TaskItem key={i} task={task} />
             ))}
             <motion.button
@@ -49,4 +47,4 @@ const Completed = () => {
       );
 }
 
-export default Completed;
+export default AllTasks;

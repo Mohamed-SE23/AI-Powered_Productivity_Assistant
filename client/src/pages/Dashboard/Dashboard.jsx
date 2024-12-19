@@ -6,13 +6,16 @@ import Pending from './Tasks/Pending';
 import Calendar from './Calendar/Calendar';
 import AiAssistant from './AiAssistant/AiAssistant';
 import { MdCalendarMonth, MdPendingActions, MdTaskAlt } from 'react-icons/md';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { clearUser } from '../../app/UserInfo';
 import { useNavigate } from 'react-router-dom';
 import AIassistant from '../../assets/AiAssistant.svg';
+import Modal from '../../components/Modal/Modal';
+import { selectIsEditing } from '../../app/tasksSlice';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('tasks');
+  const isEditing = useSelector(selectIsEditing)
 
   const renderContent = () => {
     switch (activeTab) {
@@ -41,6 +44,8 @@ const Dashboard = () => {
   };
 
   return (
+    <>
+    {isEditing && <Modal />}
     <div className="page-container flex min-h-screen bg-gray-100 md:flex-col">
       {/* Sidebar */}
       <div className="w-1/6 bg-white border-r p-6 lg:w-1/5 md:w-full flex flex-col gap-4 items-center">
@@ -87,6 +92,7 @@ const Dashboard = () => {
       {/* Content */}
       <div className="w-5/6 lg:w-4/5 p-8 md:w-full">{renderContent()}</div>
     </div>
+    </>
   )
 }
 

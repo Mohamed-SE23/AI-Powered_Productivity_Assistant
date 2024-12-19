@@ -1,26 +1,53 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const serverUrl = "https://taskfyer.onrender.com/api/v1";
+const serverUrl = "/api/v1";
+
+// get the token 
+const user = JSON.parse(localStorage.getItem('user'));
 
 // Thunks for async operations
+//  ----------------- fetch all tasks ---------------------
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
-  const response = await axios.get(`${serverUrl}/tasks`);
+  const token = user.token;
+  const response = await axios.get(`${serverUrl}/tasks`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data.tasks;
 });
 
+// ------------------- create tasks -------------------
 export const createTask = createAsyncThunk('tasks/createTask', async (task) => {
-  const response = await axios.post(`${serverUrl}/task/create`, task);
+  const token = user.token;
+  const response = await axios.post(`${serverUrl}/task/create`, task, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 });
 
+// ------------------- update tasks -------------------
 export const updateTask = createAsyncThunk('tasks/updateTask', async (task) => {
-  const response = await axios.patch(`${serverUrl}/task/${task._id}`, task);
+  const token = user.token;
+  const response = await axios.patch(`${serverUrl}/task/${task._id}`, task, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 });
 
+// ------------------------ delete task ------------------------
 export const deleteTask = createAsyncThunk('tasks/deleteTask', async (taskId) => {
-  await axios.delete(`${serverUrl}/task/${taskId}`);
+  const token = user.token;
+  await axios.delete(`${serverUrl}/task/${taskId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return taskId;
 });
 
@@ -29,11 +56,48 @@ const tasksSlice = createSlice({
   name: 'tasks',
   initialState: {
     tasks: [],
-    task: null,
+    task: {},
     loading: false,
+    isEditing: false,
     error: null,
+    priority: "all",
+    modalMode: null,
+    activeTask: null,
   },
-  reducers: {},
+  reducers: {
+    setTaskField: (state, action) => {
+      const { field, value } = action.payload;
+      state.task[field] = value;
+    },
+    setPriority: (state, action) => {
+      state.priority = action.payload;
+    },
+    setIsEditing: (state, action) => {
+      state.isEditing = action.payload;
+    },
+    setModalMode: (state, action) => {
+      state.modalMode = action.payload;
+    },
+    setActiveTask: (state, action) => {
+      state.activeTask = action.payload;
+    },
+    setTask: (state, action) => {
+      state.task = action.payload;
+    },
+    closeModal: (state) => {
+      state.modalMode = null;
+      state.activeTask = null;
+      state.task = {};
+    },
+    addTaskToState: (state, action) => {
+      state.tasks.push(action.payload);
+    },
+    updateTaskInState: (state, action) => {
+      state.tasks = state.tasks.map((task) =>
+        task._id === action.payload._id ? action.payload : task
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Fetch tasks
@@ -67,5 +131,23 @@ const tasksSlice = createSlice({
       });
   },
 });
+
+export const {
+  setTaskField,
+  setPriority,
+  setIsEditing,
+  setModalMode,
+  setActiveTask,
+  setTask,
+  closeModal,
+  addTaskToState,
+  updateTaskInState,
+} = tasksSlice.actions;
+
+export const selectAllTasks = (state) => state.tasks.tasks;
+export const selectModalMode = (state) => state.tasks.modalMode;
+export const selectActiveTask = (state) => state.tasks.activeTask;
+export const selectPriority = (state) => state.tasks.priority;
+export const selectIsEditing = (state) => state.tasks.isEditing;
 
 export default tasksSlice.reducer;
