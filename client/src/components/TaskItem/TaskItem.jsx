@@ -3,6 +3,7 @@ import { FaRegEdit, FaRegTrashAlt, FaRegCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../../app/tasksSlice";
+import { formatTime } from "../../utils/utilities";
 
 const TaskItem = ({ task, openModalForEdit }) => {
   const getPriorityColor = (priority) => {
@@ -39,7 +40,7 @@ const TaskItem = ({ task, openModalForEdit }) => {
         <p>{task.description}</p>
       </div>
       <div className="mt-auto flex justify-between items-center">
-        <p className="text-sm text-gray-400">{new Date(task.createdAt).toLocaleString()}</p>
+        <p className="text-sm text-gray-400">{formatTime(task.createdAt)}</p>
         <p className={`text-sm font-bold ${getPriorityColor(task.priority)}`}>
           {task.priority}
         </p>

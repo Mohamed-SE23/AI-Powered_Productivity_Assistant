@@ -53,6 +53,11 @@ function Modal() {
     dispatch(closeModal());
   };
 
+  // handle cancel button
+  const handleCanceling = () => {
+    dispatch(closeModal());
+  }
+
   return (
     <div className="fixed left-0 top-0 z-[500] h-full w-full bg-[#333]/30 overflow-hidden">
       <form
@@ -119,7 +124,13 @@ function Modal() {
           </select>
         </div>
 
-        <div className="mt-8">
+        <div className="flex items-center justify-between gap-4 mt-8">
+          <button
+            type="button"
+            onClick={handleCanceling}
+            className="text-slate-50 bg-gray-600 rounded-md py-2 w-full hover:bg-gray-500">
+            Cancel
+          </button>
           <button
             type="submit"
             className={`text-white py-2 rounded-md w-full hover:bg-blue-500 transition duration-200 ease-in-out ${

@@ -87,6 +87,7 @@ const tasksSlice = createSlice({
     closeModal: (state) => {
       state.modalMode = null;
       state.activeTask = null;
+      state.isEditing = false;
       state.task = {};
     },
     addTaskToState: (state, action) => {

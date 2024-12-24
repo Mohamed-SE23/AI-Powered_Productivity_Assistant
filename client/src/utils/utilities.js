@@ -49,7 +49,7 @@ export const openModalForAdd = (dispatch) => {
   // ------------------- open modal for edit task ---------------
 
   export const openModalForEdit = (dispatch, task) => {
-    dispatch(setModalMode("add"));
+    dispatch(setModalMode("edit"));
     dispatch(setIsEditing(true));
     dispatch(setActiveTask(task));
   };
