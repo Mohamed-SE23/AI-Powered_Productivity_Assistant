@@ -21,7 +21,6 @@ const user = JSON.parse(localStorage.getItem('user'));
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
   const user = JSON.parse(localStorage.getItem('user')); // Assuming user is stored in localStorage
   const userId = user?.id;
-  console.log(userId)
   
   if (!userId) {
     throw new Error("User ID is not available.");

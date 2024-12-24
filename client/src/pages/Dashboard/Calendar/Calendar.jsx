@@ -19,10 +19,10 @@ const CalendarPage = () => {
         const { data } = await axios.get('/api/v1/tasks', {
           params: { userId },
         });
-        console.log(data)
+
         const formattedEvents = data.tasks.map(task => ({
           title: task.title,
-          start: new Date(task.dueDate), // Due date as start date
+          start: new Date(task.createdAt), // Due date as start date
           end: new Date(task.dueDate), // Same as start date
           description: task.description,
           priority: task.priority,
@@ -43,9 +43,9 @@ const CalendarPage = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-4 text-center">Task Calendar</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Tasks Calendar</h1>
       <div className="bg-white rounded-lg shadow-lg p-4">
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <button
             className={`px-4 py-2 mr-2 rounded ${view === Views.DAY ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
             onClick={() => setView(Views.DAY)}
@@ -64,7 +64,7 @@ const CalendarPage = () => {
           >
             Monthly
           </button>
-        </div>
+        </div> */}
         <Calendar
           localizer={localizer}
           events={events}
