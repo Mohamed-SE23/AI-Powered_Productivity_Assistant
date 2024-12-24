@@ -58,7 +58,6 @@ export const getTasks = asyncHandler(async (req, res) => {
     }
 
     const tasks = await TaskModel.find({ user: userId });
-    console.log("Tasks fetched");
     res.status(200).json({
       length: tasks.length,
       tasks,
