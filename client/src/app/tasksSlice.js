@@ -8,19 +8,40 @@ const user = JSON.parse(localStorage.getItem('user'));
 
 // Thunks for async operations
 //  ----------------- fetch all tasks ---------------------
+// export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
+//   const token = user.token;
+//   const response = await axios.get(`${serverUrl}/tasks`, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+//   return response.data.tasks;
+// });
+
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
-  const token = user.token;
+  const user = JSON.parse(localStorage.getItem('user')); // Assuming user is stored in localStorage
+  const userId = user?.id;
+  console.log(userId)
+  
+  if (!userId) {
+    throw new Error("User ID is not available.");
+  }
+
   const response = await axios.get(`${serverUrl}/tasks`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    params: { userId },
   });
   return response.data.tasks;
 });
 
 // ------------------- get task by ID -------------------
 export const getTask = createAsyncThunk('tasks/getTask', async (taskId) => {
-  const token = user.token;
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = user?.token;
+
+  if (!token) {
+    throw new Error("User token is not available.");
+  }
+
   const response = await axios.get(`${serverUrl}/task/${taskId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -31,7 +52,13 @@ export const getTask = createAsyncThunk('tasks/getTask', async (taskId) => {
 
 // ------------------- create tasks -------------------
 export const createTask = createAsyncThunk('tasks/createTask', async (task) => {
-  const token = user.token;
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = user?.token;
+
+  if (!token) {
+    throw new Error("User token is not available.");
+  }
+
   const response = await axios.post(`${serverUrl}/task/create`, task, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -42,7 +69,13 @@ export const createTask = createAsyncThunk('tasks/createTask', async (task) => {
 
 // ------------------- update tasks -------------------
 export const updateTask = createAsyncThunk('tasks/updateTask', async (task) => {
-  const token = user.token;
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = user?.token;
+
+  if (!token) {
+    throw new Error("User token is not available.");
+  }
+
   const response = await axios.patch(`${serverUrl}/task/${task._id}`, task, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -53,7 +86,13 @@ export const updateTask = createAsyncThunk('tasks/updateTask', async (task) => {
 
 // ------------------------ delete task ------------------------
 export const deleteTask = createAsyncThunk('tasks/deleteTask', async (taskId) => {
-  const token = user.token;
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = user?.token;
+
+  if (!token) {
+    throw new Error("User token is not available.");
+  }
+  
   await axios.delete(`${serverUrl}/task/${taskId}`, {
     headers: {
       Authorization: `Bearer ${token}`,

@@ -29,25 +29,45 @@ export const createTaskHandler = asyncHandler(async (req, res) => {
 });
 
 // ---------------- Get all tasks ---------------------
+// export const getTasks = asyncHandler(async (req, res) => {
+//     try {
+//       const userId = req.user._id;
+  
+//       if (!userId) {
+//         return res.status(400).json({ message: "User not found!" });
+//       }
+  
+//       const tasks = await TaskModel.find({ user: userId });
+//       console.log('tasks fetched')
+//       res.status(200).json({
+//         length: tasks.length,
+//         tasks,
+//       });
+//     } catch (error) {
+//       console.log("Error in getTasks: ", error.message);
+//       return res.status(500).json({ message: error.message });
+//     }
+//   });
+
 export const getTasks = asyncHandler(async (req, res) => {
-    try {
-      const userId = req.user._id;
-  
-      if (!userId) {
-        return res.status(400).json({ message: "User not found!" });
-      }
-  
-      const tasks = await TaskModel.find({ user: userId });
-      console.log('tasks fetched')
-      res.status(200).json({
-        length: tasks.length,
-        tasks,
-      });
-    } catch (error) {
-      console.log("Error in getTasks: ", error.message);
-      return res.status(500).json({ message: error.message });
+  try {
+    const userId = req.query.userId; // Fetch userId from the query
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required!" });
     }
-  });
+
+    const tasks = await TaskModel.find({ user: userId });
+    console.log("Tasks fetched");
+    res.status(200).json({
+      length: tasks.length,
+      tasks,
+    });
+  } catch (error) {
+    console.log("Error in getTasks: ", error.message);
+    return res.status(500).json({ message: error.message });
+  }
+});
   
 //   --------------------- get task by id -------------------------
   export const getTask = asyncHandler(async (req, res) => {
@@ -108,7 +128,7 @@ export const getTasks = asyncHandler(async (req, res) => {
       task.priority = priority || task.priority;
       task.status = status || task.status;
       task.completed = completed !== undefined ? completed : task.completed;
-        
+
       await task.save();
   
       return res.status(200).json(task);
