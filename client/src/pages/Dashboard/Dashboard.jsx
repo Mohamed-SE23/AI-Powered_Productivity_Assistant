@@ -84,7 +84,7 @@ const Dashboard = () => {
         <button 
             type='button'
             onClick={Logout}
-            className='flex justify-center items-center text-slate-100 font-semibold bg-red-600 px-4 py-0.5 rounded-full hover:scale-110'>
+            className='flex justify-center items-center text-slate-100 font-semibold bg-red-600 px-4 py-0.5 rounded-full active:scale-90'>
               Logout
         </button>
       </div>
