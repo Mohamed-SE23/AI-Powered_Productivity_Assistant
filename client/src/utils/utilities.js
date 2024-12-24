@@ -6,20 +6,22 @@ export const formatTime = (createdAt) => {
   const now = moment();
   const created = moment(createdAt);
 
-  if (created.isSame(now, "day")) {
-    return "Today";
-  }
+  const diffInSeconds = now.diff(created, "seconds");
+  const diffInMinutes = now.diff(created, "minutes");
+  const diffInHours = now.diff(created, "hours");
+  const diffInDays = now.diff(created, "days");
+  const diffInWeeks = now.diff(created, "weeks");
 
-  if (created.isSame(now.subtract(1, "days"), "day")) {
-    return "Yesterday";
-  }
-
-  if (created.isAfter(moment().subtract(6, "days"))) {
-    return created.fromNow();
-  }
-
-  if (created.isAfter(moment().subtract(3, "weeks"), "week")) {
-    return created.fromNow();
+  if (diffInSeconds < 60) {
+    return "Now";
+  } else if (diffInMinutes < 60) {
+    return `${diffInMinutes} minute${diffInMinutes > 1 ? "s" : ""} ago`;
+  } else if (diffInHours < 24) {
+    return `${diffInHours} hour${diffInHours > 1 ? "s" : ""} ago`;
+  } else if (diffInDays < 7) {
+    return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
+  } else if (diffInWeeks < 4) {
+    return `${diffInWeeks} week${diffInWeeks > 1 ? "s" : ""} ago`;
   }
 
   return created.format("DD/MM/YYYY");
