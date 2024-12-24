@@ -18,10 +18,7 @@ export const createTaskHandler = asyncHandler(async (req, res) => {
           const newTask = await createTask({ title, description, dueDate, priority, completed,user: req.user._id, });
 
           console.log('task created successfully', newTask)
-          return res.status(201).json({
-            message: "Task created successfully",
-            task: newTask,
-          });
+          return res.status(201).json(newTask);
 
     } catch (error) {
         return res.status(500).json({
@@ -110,8 +107,8 @@ export const getTasks = asyncHandler(async (req, res) => {
       task.dueDate = dueDate || task.dueDate;
       task.priority = priority || task.priority;
       task.status = status || task.status;
-      // task.completed = completed || task.completed;
-  
+      task.completed = completed !== undefined ? completed : task.completed;
+        
       await task.save();
   
       return res.status(200).json(task);

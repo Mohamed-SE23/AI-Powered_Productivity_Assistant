@@ -107,7 +107,7 @@ function Modal() {
             className="bg-[#F9F9F9] p-2 rounded-md border"
             type="date"
             name="dueDate"
-            value={task.dueDate || ""}
+            value={task.dueDate ? task.dueDate.split('T')[0] : ""}
             onChange={handleInput("dueDate")}
           />
         </div>
@@ -116,7 +116,7 @@ function Modal() {
           <select
             className="bg-[#F9F9F9] p-2 rounded-md border cursor-pointer"
             name="completed"
-            value={task.completed ? "true" : "false"}
+            value={task.completed}
             onChange={handleInput("completed")}
           >
             <option value="false">No</option>

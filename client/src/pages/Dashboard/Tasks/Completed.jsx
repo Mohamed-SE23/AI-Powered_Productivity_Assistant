@@ -12,7 +12,7 @@ const Completed = () => {
     const tasks = useSelector(selectAllTasks);
     const priority = useSelector(selectPriority);
 
-    const completedTasks = tasks?.filter((task) => task.completed);
+    const completedTasks = tasks?.filter((task) => task.completed === "true");
 
     const filtered = filteredTasks(completedTasks, priority);
 

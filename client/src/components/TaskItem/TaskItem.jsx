@@ -2,10 +2,10 @@ import React from "react";
 import { FaRegEdit, FaRegTrashAlt, FaRegCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { deleteTask } from "../../app/tasksSlice";
-import { formatTime } from "../../utils/utilities";
+import { deleteTask, getTask } from "../../app/tasksSlice";
+import { formatTime, openModalForEdit } from "../../utils/utilities";
 
-const TaskItem = ({ task, openModalForEdit }) => {
+const TaskItem = ({ task }) => {
   const getPriorityColor = (priority) => {
     switch (priority) {
       case "low":
@@ -25,7 +25,7 @@ const TaskItem = ({ task, openModalForEdit }) => {
   }
 
   const getTaskHandler = (id) => {
-    dispatch()
+    dispatch(getTask(id))
   }
 
   return (
@@ -46,7 +46,7 @@ const TaskItem = ({ task, openModalForEdit }) => {
         </p>
         <div className="flex items-center gap-3 text-gray-400 text-[1.2rem]">
           <button
-            className={`${task.completed ? "text-green-400" : "text-gray-400"}`}
+            className={`${task.completed === "true" ? "text-green-400" : "text-gray-400"}`}
           >
             <FaRegCheckCircle />
           </button>
@@ -54,7 +54,7 @@ const TaskItem = ({ task, openModalForEdit }) => {
             className="text-[#00A1F1]"
             onClick={() => {
               getTaskHandler(task._id);
-              openModalForEdit(task);
+              openModalForEdit(dispatch, task);
             }}
           >
             <FaRegEdit />

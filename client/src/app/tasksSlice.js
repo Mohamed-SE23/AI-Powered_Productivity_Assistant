@@ -18,6 +18,17 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
   return response.data.tasks;
 });
 
+// ------------------- get task by ID -------------------
+export const getTask = createAsyncThunk('tasks/getTask', async (taskId) => {
+  const token = user.token;
+  const response = await axios.get(`${serverUrl}/task/${taskId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data.task;
+});
+
 // ------------------- create tasks -------------------
 export const createTask = createAsyncThunk('tasks/createTask', async (task) => {
   const token = user.token;
@@ -110,6 +121,19 @@ const tasksSlice = createSlice({
         state.tasks = action.payload;
       })
       .addCase(fetchTasks.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      // Get task by ID
+      .addCase(getTask.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getTask.fulfilled, (state, action) => {
+        state.loading = false;
+        state.activeTask = action.payload; // Assign the fetched task to a specific state field
+      })
+      .addCase(getTask.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })

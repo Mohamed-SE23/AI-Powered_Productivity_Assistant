@@ -12,7 +12,7 @@ const Pending = () => {
     const tasks = useSelector(selectAllTasks);
     const priority = useSelector(selectPriority);
 
-    const PendingTasks = tasks?.filter((task) => !task.completed);
+    const PendingTasks = tasks?.filter((task) => task.completed === "false");
 
     const filtered = filteredTasks(PendingTasks, priority);
 
