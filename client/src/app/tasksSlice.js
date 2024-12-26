@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const serverUrl = "/api/v1";
 
@@ -63,6 +64,7 @@ export const createTask = createAsyncThunk('tasks/createTask', async (task) => {
       Authorization: `Bearer ${token}`,
     },
   });
+  toast.success("Task created successfully")
   return response.data;
 });
 
@@ -80,6 +82,7 @@ export const updateTask = createAsyncThunk('tasks/updateTask', async (task) => {
       Authorization: `Bearer ${token}`,
     },
   });
+  toast.success("Task updated successfully")
   return response.data;
 });
 
@@ -97,6 +100,7 @@ export const deleteTask = createAsyncThunk('tasks/deleteTask', async (taskId) =>
       Authorization: `Bearer ${token}`,
     },
   });
+  toast.success("Task deleted successfully")
   return taskId;
 });
 

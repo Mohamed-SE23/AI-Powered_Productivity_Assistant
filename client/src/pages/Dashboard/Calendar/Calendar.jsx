@@ -70,7 +70,7 @@ const CalendarPage = () => {
           events={events}
           startAccessor="start"
           endAccessor="end"
-          style={{ height: 500 }}
+          style={{ height: 800 }}
           onSelectEvent={handleSelectEvent}
           defaultView={view}
           views={[Views.DAY, Views.WEEK, Views.MONTH]}
