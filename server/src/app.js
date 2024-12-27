@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import redisClient from './config/redis.js';
 import authRoutes from './routes/authRoutes.js';
 import tasksRoutes from './routes/tasksRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
+import weatherRoutes from './routes/weatherRoutes.js';
 
 dotenv.config();
 
@@ -25,6 +27,8 @@ redisClient.connect().catch(console.error);
 // Routes
 app.use('/api/v1', authRoutes);
 app.use('/api/v1', tasksRoutes);
+app.use('/api/v1', aiRoutes);
+app.use('/api/v1', weatherRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
