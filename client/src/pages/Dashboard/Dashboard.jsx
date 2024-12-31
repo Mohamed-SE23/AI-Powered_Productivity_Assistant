@@ -48,7 +48,7 @@ const Dashboard = () => {
     {isEditing && <Modal />}
     <div className="page-container flex min-h-screen bg-gray-100 md:flex-col">
       {/* Sidebar */}
-      <div className="w-1/6 bg-white border-r p-6 lg:w-1/5 md:w-full flex flex-col gap-4 items-center">
+      <div className="w-1/5 bg-white border-r p-6 md:w-full flex flex-col gap-4 items-start">
         <ul className='flex flex-col items-start md:flex md:space-x-4 md:items-center'>
           <li
             onClick={() => setActiveTab('tasks')}
