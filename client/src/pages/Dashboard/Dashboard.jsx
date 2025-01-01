@@ -40,6 +40,7 @@ const Dashboard = () => {
 
   const Logout = () => {
     dispatch(clearUser())
+    localStorage.removeItem('notifications');
     navigate('/');
   };
 

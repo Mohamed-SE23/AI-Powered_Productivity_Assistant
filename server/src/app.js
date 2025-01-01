@@ -11,6 +11,7 @@ import weatherRoutes from './routes/weatherRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
 import TaskModel from './models/tasks/TaskModel.js';
 import User from './models/User.js';
+import Notifications from './models/Notifications.js';
 import { createNotification } from './services/notificationService.js';
 
 dotenv.config();
@@ -38,32 +39,48 @@ schedule.scheduleJob("*/1 * * * *", async () => {
   const upcomingThreshold = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 
   try {
-    // Example: Fetch tasks for all users (you can filter specific users as needed)
+    // Fetch all users
     const users = await User.find();
-    
+
     for (const user of users) {
+      // Fetch tasks that are incomplete and due soon
       const tasks = await TaskModel.find({
         user: user._id,
         completed: "false",
         dueDate: { $lte: upcomingThreshold },
       });
-       console.log("tasks:",tasks);
+
+      console.log("tasks:", tasks);
+
       for (const task of tasks) {
         const message = `Task "${task.title}" is due on ${task.dueDate.toDateString()}. Priority: ${task.priority}.`;
-        const notification = {
+
+        // Check if a similar notification already exists
+        const existingNotification = await Notifications.findOne({
           userId: user._id,
           type: "reminder",
           message,
-          timestamp: now,
-        };
-        await createNotification(notification);
-        console.log("Notification created for user:", user._id, notification);
+        });
+
+        if (!existingNotification) {
+          // Create notification if it doesn't exist
+          const notification = {
+            userId: user._id,
+            type: "reminder",
+            message,
+            timestamp: now,
+          };
+
+          await createNotification(notification);
+          console.log("Notification created for user:", user._id, notification);
+        }
       }
     }
   } catch (error) {
     console.error("Error creating notifications for tasks:", error);
   }
 });
+
 
 // Routes
 app.use('/api/v1', authRoutes);

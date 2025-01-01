@@ -9,15 +9,14 @@ const Notifications = () => {
   const [filter, setFilter] = useState("all"); // Filter options: all, reminders, insights
   const user = useSelector(selectCurrentUser);
   const userId = user.id;
-  console.log(userId)
 
   // Fetch notifications from the backend
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
         const response = await axios.get(`/api/v1/notifications?userId=${userId}`);
-        console.log(response)
         setNotifications(response.data);
+        localStorage.setItem('notifications', response.data.length)
       } catch (error) {
         console.error("Error fetching notifications:", error);
       }

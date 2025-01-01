@@ -4,10 +4,12 @@ import { selectCurrentUser } from '../app/UserInfo'
 import { MdDashboard } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { NavLink } from 'react-router-dom';
-import founder from '../assets/founder.jpg'
+import founder from '../assets/founder.jpg';
 
 const AuthHeader = () => {
-    const user = useSelector(selectCurrentUser)
+    const user = useSelector(selectCurrentUser);
+    const notifications = localStorage.getItem('notifications');
+
   return (
     <div className='flex items-center justify-center gap-4'>
         <NavLink
@@ -31,7 +33,7 @@ const AuthHeader = () => {
             }
         >
             <div className='relative flex items-center justify-center'>
-            <IoIosNotificationsOutline className='w-6 h-6' /><span className='absolute -top-1.5 text-slate-100 bg-red-600 text-[10px] w-4 h-4 flex items-center justify-center rounded-full'>0</span>
+            <IoIosNotificationsOutline className='w-6 h-6' /><span className='absolute -top-1.5 text-slate-100 bg-red-600 text-[10px] w-4 h-4 flex items-center justify-center rounded-full'>{notifications > 9 ? '+9': notifications}</span>
             </div>
         </NavLink>
         <NavLink
