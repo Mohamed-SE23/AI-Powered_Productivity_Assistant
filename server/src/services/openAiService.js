@@ -42,10 +42,13 @@
 //   }
 // };
 
+import dotenv from "dotenv";
+dotenv.config();
 
 import { OpenAI } from "openai";
 
-const openai = new OpenAI({ apiKey: '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' });
+const openaiAPI = process.env.OPENAI
+const openai = new OpenAI({ apiKey: openaiAPI }); // replace with the api secret if it is not working
 
 export const generateInsights = async (tasks) => {
   // Format tasks for the prompt

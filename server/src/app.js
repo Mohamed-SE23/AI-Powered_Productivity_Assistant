@@ -1,16 +1,23 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import schedule from 'node-schedule';
+import bodyParser from 'body-parser';
 import redisClient from './config/redis.js';
 import authRoutes from './routes/authRoutes.js';
 import tasksRoutes from './routes/tasksRoutes.js';
 import aiRoutes from './routes/aiRoutes.js';
 import weatherRoutes from './routes/weatherRoutes.js';
+import notificationRoutes from './routes/notificationRoutes.js';
+import TaskModel from './models/tasks/TaskModel.js';
+import User from './models/User.js';
+import { createNotification } from './services/notificationService.js';
 
 dotenv.config();
 
 const app = express();
 app.use(express.json()); // Parse JSON bodies
+app.use(bodyParser.json());
 
 // Connect to MongoDB
 mongoose
@@ -24,11 +31,46 @@ mongoose
 // Test Redis connection
 redisClient.connect().catch(console.error);
 
+// Schedule task-based notifications
+schedule.scheduleJob("*/1 * * * *", async () => {
+  console.log("Scheduled job executed at:", new Date());
+  const now = new Date();
+  const upcomingThreshold = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+
+  try {
+    // Example: Fetch tasks for all users (you can filter specific users as needed)
+    const users = await User.find();
+    
+    for (const user of users) {
+      const tasks = await TaskModel.find({
+        user: user._id,
+        completed: "false",
+        dueDate: { $lte: upcomingThreshold },
+      });
+       console.log("tasks:",tasks);
+      for (const task of tasks) {
+        const message = `Task "${task.title}" is due on ${task.dueDate.toDateString()}. Priority: ${task.priority}.`;
+        const notification = {
+          userId: user._id,
+          type: "reminder",
+          message,
+          timestamp: now,
+        };
+        await createNotification(notification);
+        console.log("Notification created for user:", user._id, notification);
+      }
+    }
+  } catch (error) {
+    console.error("Error creating notifications for tasks:", error);
+  }
+});
+
 // Routes
 app.use('/api/v1', authRoutes);
 app.use('/api/v1', tasksRoutes);
 app.use('/api/v1', aiRoutes);
 app.use('/api/v1', weatherRoutes);
+app.use('/api/v1', notificationRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
