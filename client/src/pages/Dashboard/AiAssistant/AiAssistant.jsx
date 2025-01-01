@@ -48,9 +48,9 @@ const AiAssistant = () => {
     }
 
     // Fetch AI insights
-    axios.post("/api/v1/ai-assistant", { tasks }).then((response) =>
-      setAiInsights(response.data)
-    );
+    // axios.post("/api/v1/ai-assistant", { tasks }).then((response) =>
+    //   setAiInsights(response.data)
+    // );
   }, []);
 
   return (
