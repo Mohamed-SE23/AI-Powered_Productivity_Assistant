@@ -1,29 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import { selectCurrentUser } from "../../app/UserInfo.js";
+import { useSelector } from "react-redux";
+import { selectNotifications } from "../../app/Notifications";
 
 const Notifications = () => {
-  const [notifications, setNotifications] = useState([]);
+  const notificationsData = useSelector(selectNotifications);
+  console.log(notificationsData)
+
+  const [notifications, setNotifications] = useState(notificationsData);
   const [filter, setFilter] = useState("all"); // Filter options: all, reminders, insights
-  const user = useSelector(selectCurrentUser);
-  const userId = user.id;
-
-  // Fetch notifications from the backend
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const response = await axios.get(`/api/v1/notifications?userId=${userId}`);
-        setNotifications(response.data);
-        localStorage.setItem('notifications', response.data.length)
-      } catch (error) {
-        console.error("Error fetching notifications:", error);
-      }
-    };
-
-    fetchNotifications();
-  }, []);
+  
 
   const handleMarkAllAsRead = () => {
     setNotifications((prev) =>

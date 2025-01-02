@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaTasks } from "react-icons/fa";
 import Tasks from './Tasks/Tasks';
 import Completed from './Tasks/Completed';
@@ -7,11 +7,12 @@ import Calendar from './Calendar/Calendar';
 import AiAssistant from './AiAssistant/AiAssistant';
 import { MdCalendarMonth, MdPendingActions, MdTaskAlt } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearUser } from '../../app/UserInfo';
+import { clearUser, selectCurrentUser } from '../../app/UserInfo';
 import { useNavigate } from 'react-router-dom';
 import AIassistant from '../../assets/AiAssistant.svg';
 import Modal from '../../components/Modal/Modal';
 import { selectIsEditing } from '../../app/tasksSlice';
+import { fetchNotifications } from '../../app/Notifications';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('tasks');
@@ -35,6 +36,7 @@ const Dashboard = () => {
   };
 
   // Logout function
+  const userId = useSelector(selectCurrentUser).id;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,6 +45,10 @@ const Dashboard = () => {
     localStorage.removeItem('notifications');
     navigate('/');
   };
+
+  useEffect(() => {
+    dispatch(fetchNotifications(userId));
+  },[])
 
   return (
     <>

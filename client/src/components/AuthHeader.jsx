@@ -4,11 +4,12 @@ import { selectCurrentUser } from '../app/UserInfo'
 import { MdDashboard } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { NavLink } from 'react-router-dom';
+import { selectNotifications} from '../app/Notifications';
 import founder from '../assets/founder.jpg';
 
 const AuthHeader = () => {
     const user = useSelector(selectCurrentUser);
-    const notifications = localStorage.getItem('notifications');
+    const notifications = useSelector(selectNotifications).length;
 
   return (
     <div className='flex items-center justify-center gap-4'>
