@@ -16,6 +16,27 @@ export const fetchNotifications = createAsyncThunk(
   }
 );
 
+// Async thunk to delete a notification
+export const deleteNotification = createAsyncThunk(
+  'notifications/deleteNotification',
+  async (notificationId, { rejectWithValue }) => {
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const token = user?.token;
+
+      if (!token) throw new Error('Authentication token is missing');
+
+      const response = await axios.delete(`/api/v1/notifications/${notificationId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return notificationId; // Return the ID of the deleted notification
+    } catch (error) {
+      console.error("Error deleting notification:", error);
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
 const notificationsSlice = createSlice({
   name: 'notifications',
   initialState: {
@@ -35,6 +56,18 @@ const notificationsSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(fetchNotifications.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(deleteNotification.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(deleteNotification.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.data = state.data.filter((notification) => notification._id !== action.payload);
+      })
+      .addCase(deleteNotification.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       });

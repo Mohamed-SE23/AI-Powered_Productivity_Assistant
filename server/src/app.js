@@ -50,8 +50,6 @@ schedule.scheduleJob("*/1 * * * *", async () => {
         dueDate: { $lte: upcomingThreshold },
       });
 
-      console.log("tasks:", tasks);
-
       for (const task of tasks) {
         const message = `Task "${task.title}" is due on ${task.dueDate.toDateString()}. Priority: ${task.priority}.`;
 
@@ -72,7 +70,6 @@ schedule.scheduleJob("*/1 * * * *", async () => {
           };
 
           await createNotification(notification);
-          console.log("Notification created for user:", user._id, notification);
         }
       }
     }

@@ -48,7 +48,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(fetchNotifications(userId));
-  },[])
+  },[dispatch])
 
   return (
     <>

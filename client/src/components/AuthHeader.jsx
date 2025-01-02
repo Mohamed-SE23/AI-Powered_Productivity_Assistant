@@ -5,7 +5,7 @@ import { MdDashboard } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { NavLink } from 'react-router-dom';
 import { selectNotifications} from '../app/Notifications';
-import founder from '../assets/founder.jpg';
+// import founder from '../assets/founder.jpg';
 
 const AuthHeader = () => {
     const user = useSelector(selectCurrentUser);

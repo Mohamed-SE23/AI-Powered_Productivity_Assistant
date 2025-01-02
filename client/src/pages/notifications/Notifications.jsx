@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useSelector } from "react-redux";
-import { selectNotifications } from "../../app/Notifications";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteNotification, selectNotifications } from "../../app/Notifications";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 const Notifications = () => {
   const notificationsData = useSelector(selectNotifications);
-  console.log(notificationsData)
+  const dispatch = useDispatch();
 
   const [notifications, setNotifications] = useState(notificationsData);
   const [filter, setFilter] = useState("all"); // Filter options: all, reminders, insights
-  
 
   const handleMarkAllAsRead = () => {
     setNotifications((prev) =>
@@ -18,7 +18,13 @@ const Notifications = () => {
     toast.success("All notifications marked as read!");
   };
 
-  const filteredNotifications = notifications.filter((notif) =>
+  // handle delete notifications
+  const handleDelete = (id) => {
+    dispatch(deleteNotification(id));
+    toast.success("Notification deleted!");
+  };
+
+  const filteredNotifications = notificationsData.filter((notif) =>
     filter === "all" ? true : notif.type === filter
   );
 
@@ -49,17 +55,27 @@ const Notifications = () => {
           filteredNotifications.map((notif, i) => (
             <div
               key={i}
-              className={`p-4 border rounded-lg ${
+              className={`p-4 border rounded-lg flex justify-between items-center ${
                 notif.read ? "bg-gray-100" : "bg-white"
               }`}
             >
-              <div className="flex justify-between items-center">
-                <p className="font-semibold">{notif.message}</p>
-                <span className="text-xs text-gray-500">
-                  {new Date(notif.timestamp).toLocaleString()}
-                </span>
+              <div className="w-full">
+                <div className="flex justify-between items-center">
+                  <p className="font-semibold">{notif.message}</p>
+                  <span className="text-xs text-gray-500">
+                    {new Date(notif.timestamp).toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <p className="text-sm text-gray-600 mt-2">{notif.type}</p>
+                  <button
+                    className="text-red-500 hover:text-red-700 ml-4"
+                    onClick={() => handleDelete(notif._id)}
+                  >
+                    <FaRegTrashAlt size={18} />
+                  </button>
+                </div>
               </div>
-              <p className="text-sm text-gray-600 mt-2">{notif.type}</p>
             </div>
           ))
         ) : (
