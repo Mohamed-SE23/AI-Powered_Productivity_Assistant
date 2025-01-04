@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import schedule from 'node-schedule';
 import bodyParser from 'body-parser';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import redisClient from './config/redis.js';
 import authRoutes from './routes/authRoutes.js';
 import tasksRoutes from './routes/tasksRoutes.js';
@@ -17,8 +19,12 @@ import { createNotification } from './services/notificationService.js';
 dotenv.config();
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use(express.json()); // Parse JSON bodies
 app.use(bodyParser.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Connect to MongoDB
 mongoose

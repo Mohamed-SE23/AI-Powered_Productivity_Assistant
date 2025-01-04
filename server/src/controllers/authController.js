@@ -3,7 +3,8 @@ import { createUser, loginUser } from '../services/authService.js';
 // Creating a new user
 export const signup = async (req, res) => {
   try {
-    const { username, email, password, profile_pic } = req.body;
+    const { username, email, password } = req.body;
+    const profilePic = req.file ? `/uploads/${req.file.filename}` : null; // Create public URL
 
     // Validate input
     if (!username || !email || !password) {
@@ -16,7 +17,7 @@ export const signup = async (req, res) => {
     }
 
     // Create user
-    const user = await createUser({ username, email, password, profile_pic });
+    const user = await createUser({ username, email, password, profile_pic: profilePic });
 
     // Respond with success
     return res.status(201).json({
