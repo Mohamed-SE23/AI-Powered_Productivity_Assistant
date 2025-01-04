@@ -34,6 +34,7 @@ export const protect = async (req, res, next) => {
     }
 
     req.user = user;
+    req.token = token; // Attach token to the request
     console.log("Authenticated user:", req.user); // Debugging log
     next();
   } catch (error) {

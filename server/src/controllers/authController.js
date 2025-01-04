@@ -1,4 +1,4 @@
-import { createUser, loginUser } from '../services/authService.js';
+import { createUser, deleteUser, loginUser } from '../services/authService.js';
 
 // Creating a new user
 export const signup = async (req, res) => {
@@ -54,5 +54,19 @@ export const signin = async (req, res) => {
     });
   } catch (error) {
     return res.status(401).json({ message: error.message });
+  }
+};
+
+// ********************************* Delete account ***************************************************
+export const deleteUserController = async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming authentication middleware adds user info to req.user
+
+    // Call the service to delete the user
+    await deleteUser(userId);
+
+    return res.status(200).json({ message: 'Account deleted successfully.' });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
   }
 };

@@ -58,8 +58,7 @@ export const loginUser = async ({ email, password }) => {
     // Generate a JWT
     const token = jwt.sign(
       { id: user._id, username: user.username, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' } // Token valid for 1 hour
+      process.env.JWT_SECRET
     );
 
     if (!process.env.JWT_SECRET) {
@@ -70,4 +69,13 @@ export const loginUser = async ({ email, password }) => {
   } catch (error) {
     throw new Error(error.message);
   }
+};
+
+// ************** delete account *************************
+export const deleteUser = async (userId) => {
+  const user = await User.findByIdAndDelete(userId);
+  if (!user) {
+    throw new Error('User not found.');
+  }
+  return user;
 };

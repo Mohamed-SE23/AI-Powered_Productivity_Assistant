@@ -1,11 +1,14 @@
 import express from 'express';
 import multer from 'multer';
-import { signup, signin } from '../controllers/authController.js';
+import { signup, signin, deleteUserController } from '../controllers/authController.js';
+import { updateUserController } from '../controllers/updateUserController.js';
+import { resetPasswordController } from '../controllers/resetPasswordController.js';
+import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 const upload = multer({
     dest: 'uploads/',
-    limits: { fileSize: 20 * 1024 * 1024 }, // 2 MB limit
+    limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB limit
     fileFilter: (req, file, cb) => {
       if (file.mimetype.startsWith('image/')) {
         cb(null, true);
@@ -17,5 +20,8 @@ const upload = multer({
 
 router.post('/signup', upload.single('profile_pic'),signup);
 router.post('/signin', signin);
+router.put('/update-user', protect, upload.single('profile_pic'), updateUserController);
+router.put('/reset-password', protect, resetPasswordController);
+router.delete('/delete-account', protect, deleteUserController);
 
 export default router;
