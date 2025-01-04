@@ -75,6 +75,7 @@ function Modal() {
             name="title"
             value={task.title || ""}
             onChange={handleInput("title")}
+            required
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -86,6 +87,7 @@ function Modal() {
             rows="4"
             value={task.description || ""}
             onChange={handleInput("description")}
+            required
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -109,6 +111,7 @@ function Modal() {
             name="dueDate"
             value={task.dueDate ? task.dueDate.split('T')[0] : ""}
             onChange={handleInput("dueDate")}
+            required
           />
         </div>
         <div className="flex flex-col gap-1">

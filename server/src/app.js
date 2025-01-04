@@ -47,7 +47,7 @@ schedule.scheduleJob("*/1 * * * *", async () => {
       const tasks = await TaskModel.find({
         user: user._id,
         completed: "false",
-        dueDate: { $lte: upcomingThreshold },
+        dueDate: { $gte: now - 24 * 60 * 60 * 1000, $lte: upcomingThreshold }, // Filter for future tasks only
       });
 
       for (const task of tasks) {

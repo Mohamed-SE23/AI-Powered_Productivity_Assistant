@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteNotification, selectNotifications } from "../../app/Notifications";
+import { deleteNotification, fetchNotifications, selectNotifications } from "../../app/Notifications";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { selectCurrentUser } from "../../app/UserInfo";
 
 const Notifications = () => {
   const notificationsData = useSelector(selectNotifications);
   const dispatch = useDispatch();
+  const userId = useSelector(selectCurrentUser).id;
 
   const [notifications, setNotifications] = useState(notificationsData);
   const [filter, setFilter] = useState("all"); // Filter options: all, reminders, insights
@@ -27,6 +29,10 @@ const Notifications = () => {
   const filteredNotifications = notificationsData.filter((notif) =>
     filter === "all" ? true : notif.type === filter
   );
+
+  useEffect(() => {
+    dispatch(fetchNotifications(userId))
+  },[]);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -60,7 +66,7 @@ const Notifications = () => {
               }`}
             >
               <div className="w-full">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-start">
                   <p className="font-semibold">{notif.message}</p>
                   <span className="text-xs text-gray-500">
                     {new Date(notif.timestamp).toLocaleString()}
