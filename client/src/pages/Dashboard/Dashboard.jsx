@@ -55,43 +55,43 @@ const Dashboard = () => {
     {isEditing && <Modal />}
     <div className="page-container flex min-h-screen bg-gray-100 md:flex-col">
       {/* Sidebar */}
-      <div className="w-1/5 bg-white border-r p-6 md:w-full flex flex-col gap-4 items-start">
-        <ul className='flex flex-col items-start md:flex md:space-x-4 md:items-center'>
+      <div className="w-1/5 bg-white border-r p-6 md:w-full flex flex-col gap-4 items-start md:flex-row md:justify-center md:pt-9">
+        <ul className='flex flex-col items-start md:flex-row md:space-x-4 md:items-center'>
           <li
             onClick={() => setActiveTab('tasks')}
             className={`flex items-center justify-center gap-1 cursor-pointer mb-4 ${activeTab === 'tasks' ? 'font-semibold text-[#1dd4cb]' : ''}`}
           >
-            <FaTasks className='ml-0.5' /><span>All Tasks</span>
+            <FaTasks className='ml-0.5' /><span className='md:hidden'>All Tasks</span>
           </li>
           <li
             onClick={() => setActiveTab('completed')}
             className={`flex items-center justify-center gap-1 cursor-pointer mb-4 ${activeTab === 'completed' ? 'font-semibold text-[#1dd4cb]' : ''}`}
           >
-            <MdTaskAlt className='w-5 h-5' /><span>Completed</span>
+            <MdTaskAlt className='w-5 h-5' /><span className='md:hidden'>Completed</span>
           </li>
           <li
             onClick={() => setActiveTab('pending')}
             className={`flex items-center justify-center gap-1 cursor-pointer mb-4 ${activeTab === 'pending' ? 'font-semibold text-[#1dd4cb]' : ''}`}
           >
-            <MdPendingActions className='w-5 h-5' /><span>Pending</span>
+            <MdPendingActions className='w-5 h-5' /><span className='md:hidden'>Pending</span>
           </li>
           <li
             onClick={() => setActiveTab('calendar')}
             className={`flex items-center justify-center gap-1 cursor-pointer mb-4 ${activeTab === 'calendar' ? 'font-semibold text-[#1dd4cb]' : ''}`}
           >
-            <MdCalendarMonth className='w-5 h-5' /><span>Calendar</span>
+            <MdCalendarMonth className='w-5 h-5' /><span className='md:hidden'>Calendar</span>
           </li>
           <li
             onClick={() => setActiveTab('aiAssistant')}
             className={`flex items-center justify-center gap-1 cursor-pointer mb-4 ${activeTab === 'aiAssistant' ? 'font-semibold text-[#1dd4cb]' : ''}`}
           >
-            <img src={AIassistant} alt='assistant-img' className='-ml-0.5 -[#1dd4cb]' /><span>AI-Assistant</span>
+            <img src={AIassistant} alt='assistant-img' className='-ml-0.5 -[#1dd4cb]' /><span className='md:hidden'>AI-Assistant</span>
           </li>
         </ul>
         <button 
             type='button'
             onClick={Logout}
-            className='flex justify-center items-center text-slate-100 font-semibold bg-red-600 px-4 py-0.5 rounded-full active:scale-90'>
+            className='flex justify-center items-center text-slate-100 font-semibold bg-red-600 px-4 py-0.5 rounded-full active:scale-90 md:px-3 md:font-medium sm:text-sm'>
               Logout
         </button>
       </div>
