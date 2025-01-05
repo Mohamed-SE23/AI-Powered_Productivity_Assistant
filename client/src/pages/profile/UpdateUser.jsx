@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUser, setUser, setUserAuthenticated } from '../../app/UserInfo';
+import { clearUser, selectCurrentUser, setUser, setUserAuthenticated } from '../../app/UserInfo';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateUser = () => {
   const user = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     username: user?.username || '',
@@ -53,6 +55,36 @@ const UpdateUser = () => {
     } catch (error) {
       console.error('Error updating user:', error.response?.data || error.message);
       toast.error(error.response?.data?.message || 'Failed to update profile');
+    }
+  };
+
+//   Delete Account
+    const Logout = () => {
+        dispatch(clearUser())
+        localStorage.removeItem('notifications');
+        navigate('/');
+    };
+  
+  const handleDeleteAccount = async () => {
+    const isConfirmed = window.confirm('Are you sure you want to delete your account? This action cannot be undone.');
+
+    if (!isConfirmed) {
+      // User canceled the action
+      return;
+    }
+
+    try {
+      const response = await axios.delete('/api/v1/delete-account', {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+  
+      toast.success(response.data.message);
+      Logout();
+    } catch (error) {
+      console.error('Error deleting account:', error.response?.data || error.message);
+      toast.error(error.response?.data?.message || 'Failed to delete account');
     }
   };
 
@@ -105,7 +137,13 @@ const UpdateUser = () => {
         </div>
 
         {/* Save Button */}
-        <div className="text-right">
+        <div className="flex justify-end items-center gap-4 sm:flex-col md:justify-center">
+        <button 
+            type='button'
+            onClick={handleDeleteAccount}
+            className='flex justify-center items-center text-slate-50 px-6 py-2 bg-red-500 rounded-lg active:scale-90 hover:bg-red-600'>
+              DeleteAccount
+          </button>
           <button
             type="submit"
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"

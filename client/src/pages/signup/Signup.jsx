@@ -49,7 +49,6 @@ const Signup = () => {
         });
     };
 
-    console.log(formData)
     const handleSubmit = async (e) => {
         e.preventDefault();
 

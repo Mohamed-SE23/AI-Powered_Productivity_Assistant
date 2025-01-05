@@ -11,17 +11,6 @@ const Profile = () => {
   const [activeTab, setActiveTab] = useState('update-user');
   const user = useSelector(selectCurrentUser);
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'update-user':
-        return <UpdateUser />;
-      case 'reset-password':
-        return <ResetPassword />;
-      default:
-        return <Tasks />;
-    }
-  };
-
     // Logout function
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -31,21 +20,15 @@ const Profile = () => {
       localStorage.removeItem('notifications');
       navigate('/');
     };
-    
-    const handleDeleteAccount = async () => {
-      try {
-        const response = await axios.delete('/api/v1/delete-account', {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-    
-        toast.success(response.data.message);
-        // Optionally log the user out and redirect to the homepage
-        Logout();
-      } catch (error) {
-        console.error('Error deleting account:', error.response?.data || error.message);
-        toast.error(error.response?.data?.message || 'Failed to delete account');
+
+    const renderContent = () => {
+      switch (activeTab) {
+        case 'update-user':
+          return <UpdateUser />;
+        case 'reset-password':
+          return <ResetPassword />;
+        default:
+          return <Tasks />;
       }
     };
 
@@ -68,12 +51,6 @@ const Profile = () => {
               Password
             </li>
           </ul>
-          <button 
-            type='button'
-            onClick={handleDeleteAccount}
-            className='flex justify-center items-center font-semibold text-red-600 px-4 py-0.5 rounded-full active:scale-90'>
-              DeleteAccount
-          </button>
           <button 
             type='button'
             onClick={Logout}

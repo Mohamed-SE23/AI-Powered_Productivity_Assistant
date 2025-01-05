@@ -77,5 +77,6 @@ export const deleteUser = async (userId) => {
   if (!user) {
     throw new Error('User not found.');
   }
+  await redisClient.del(user.email)
   return user;
 };
