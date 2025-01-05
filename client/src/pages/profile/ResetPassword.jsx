@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../app/UserInfo';
+import toast from 'react-hot-toast';
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
@@ -43,7 +44,12 @@ const ResetPassword = () => {
       );
 
       console.log('Password updated:', response.data);
-      alert('Password updated successfully!');
+      toast.success('Password updated successfully!');
+      setFormData({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+      });
     } catch (error) {
       console.error('Error resetting password:', error.response?.data || error.message);
       alert(error.response?.data?.message || 'Failed to reset password');

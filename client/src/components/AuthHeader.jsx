@@ -7,14 +7,15 @@ import { NavLink } from 'react-router-dom';
 import { selectNotifications} from '../app/Notifications';
 // import founder from '../assets/founder.jpg';
 
-const AuthHeader = () => {
+const AuthHeader = ({closeMenu}) => {
     const user = useSelector(selectCurrentUser);
     const notifications = useSelector(selectNotifications).length;
 
   return (
-    <div className='flex items-center justify-center gap-4'>
+    <div className='flex items-center justify-center gap-4 md:flex-col md:items-start'>
         <NavLink
             to={`/${user.id}/dashboard`}
+            onClick={closeMenu}
             className={({ isActive }) =>
                 isActive
                     ? 'text-[#1DD4CB] transition duration-300 ease-in-out'
@@ -27,6 +28,7 @@ const AuthHeader = () => {
         </NavLink>
         <NavLink
             to={`/${user.id}/notifications`}
+            onClick={closeMenu}
             className={({ isActive }) =>
                 isActive
                     ? 'text-[#1DD4CB] transition duration-300 ease-in-out'
@@ -34,18 +36,23 @@ const AuthHeader = () => {
             }
         >
             <div className='relative flex items-center justify-center'>
-            <IoIosNotificationsOutline className='w-6 h-6' /><span className={notifications === 0 ? 'hidden' : 'absolute -top-1.5 text-slate-100 bg-red-600 text-[10px] w-4 h-4 flex items-center justify-center rounded-full'}>{notifications > 9 ? '+9': notifications}</span>
+            <IoIosNotificationsOutline className='w-6 h-6' />
+            <span className={notifications === 0 ? 'hidden' : 'absolute -top-1.5 text-slate-100 bg-red-600 text-[10px] w-4 h-4 flex items-center justify-center rounded-full'}>
+                {notifications > 9 ? '+9': notifications}</span>
+                <span className='hidden md:block'>Notifications</span>
             </div>
         </NavLink>
         <NavLink
             to={`/${user.id}/profile`}
+            onClick={closeMenu}
             className={({ isActive }) =>
                 isActive
-                    ? 'text-[#1DD4CB] transition duration-300 ease-in-out'
-                    : 'hover:text-[#1DD4CB] transition duration-300 ease-in-out'
+                    ? 'text-[#1DD4CB] flex items-center gap-2 transition duration-300 ease-in-out'
+                    : 'hover:text-[#1DD4CB] transition flex items-center gap-2 duration-300 ease-in-out'
             }
         >
             <img src={user.profile_pic} alt='profile-img' className='h-8 w-8 rounded-full object-cover'/>
+            <span className='hidden md:block'>Profile</span>
         </NavLink>
     </div>
   )
