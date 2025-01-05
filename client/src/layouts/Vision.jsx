@@ -6,7 +6,7 @@ const Vision = () => {
 
   return (
     <div className="my-20">
-    <h1 className="text-4xl font-bold text-[#333] text-center mb-14">Vision and Mission</h1>
+    <h1 className="text-4xl font-bold text-[#333] text-center mb-14 md:text-2xl sm:text-xl">Vision and Mission</h1>
     <div className="md:flex-col md:space-y-16">
       {visionAndMission.map((item, i) => {
         return (

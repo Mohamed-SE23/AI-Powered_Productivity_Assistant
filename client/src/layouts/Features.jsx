@@ -7,7 +7,7 @@ const Features = () => {
     return (
         <div className="container mx-auto px-4 py-8">
             {/* Section Title */}
-            <h1 className="text-4xl text-center font-bold mb-14 text-gray-900">
+            <h1 className="text-4xl text-center font-bold mb-14 text-gray-900 md:text-2xl sm:text-xl">
                 Features
             </h1>
 
