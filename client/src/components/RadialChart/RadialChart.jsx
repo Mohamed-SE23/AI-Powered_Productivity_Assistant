@@ -18,7 +18,7 @@ const RadialChart = ({ completedTasks, pendingTasks }) => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg w-48 h-44 flex flex-col items-center justify-center p-2">
+    <div className="w-48 h-44 flex flex-col items-center justify-center p-2">
       <h3 className="text-lg font-semibold text-gray-700 mb-2">Tasks Overview</h3>
       <div className="w-32 h-32">
         <Doughnut 
