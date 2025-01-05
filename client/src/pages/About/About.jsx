@@ -17,22 +17,22 @@ const About = () => {
         <div className="container page-container bg-[#f5f5f5] mx-auto px-6 py-12 space-y-16">
             {/* Section Heading */}
             <div className="text-center space-y-4">
-                <h1 className="text-5xl font-extrabold text-gray-800">About Us</h1>
-                <p className="text-xl text-gray-600">
+                <h1 className="text-4xl font-extrabold text-gray-800 md:text-2xl">About Me</h1>
+                <p className="text-xl text-gray-600 md:text-lg sm:text-sm">
                     Empowering productivity with cutting-edge AI technology.
                 </p>
             </div>
 
             {/* Story / Background */}
             <div className="space-y-8 text-center">
-                <h2 className="text-3xl font-semibold text-gray-800">Our Story</h2>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                    Our journey began with a mission to help people stay focused and achieve their goals effortlessly. 
-                    We realized that modern productivity tools needed a smarter, more personalized approach—and that's 
+                <h2 className="text-3xl font-semibold text-gray-800 md:text-2xl">My Story</h2>
+                <p className="text-lg text-gray-600 leading-relaxed sm:text-sm">
+                    My journey began with a mission to help people stay focused and achieve their goals effortlessly. 
+                    I realized that modern productivity tools needed a smarter, more personalized approach—and that's 
                     how <span className="font-bold text-[#1DD4CB]">AI-PPA</span> was born.
                 </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                    By leveraging the power of AI, we've created a solution to address common productivity challenges, 
+                <p className="text-lg text-gray-600 leading-relaxed sm:text-sm">
+                    By leveraging the power of AI, I've created a solution to address common productivity challenges, 
                     making work smarter, faster, and more effective.
                 </p>
             </div>
@@ -40,14 +40,14 @@ const About = () => {
             {/* Vision and Mission */}
             <div className="grid grid-cols-2 md:grid-cols-1 gap-8">
                 <div className="p-8 bg-white rounded-lg shadow-xl">
-                    <h3 className="text-2xl font-bold text-gray-800">Our Vision</h3>
-                    <p className="text-lg text-gray-600 mt-4">
+                    <h3 className="text-2xl font-bold text-gray-800 md:text-xl">My Vision</h3>
+                    <p className="text-lg text-gray-600 mt-4 sm:text-sm">
                         To transform the way people work and collaborate, making productivity effortless and enjoyable.
                     </p>
                 </div>
                 <div className="p-8 bg-white rounded-lg shadow-xl">
-                    <h3 className="text-2xl font-bold text-gray-800">Our Mission</h3>
-                    <p className="text-lg text-gray-600 mt-4">
+                    <h3 className="text-2xl font-bold text-gray-800 md:text-xl">My Mission</h3>
+                    <p className="text-lg text-gray-600 mt-4 sm:text-sm">
                         To provide an AI-powered solution that simplifies your daily tasks, optimizes your time, and empowers 
                         you to focus on what truly matters.
                     </p>
@@ -56,7 +56,7 @@ const About = () => {
 
             {/* Team Section */}
             <div className="space-y-8">
-                <h2 className="text-3xl font-semibold text-gray-800 text-center">Meet the Team</h2>
+                <h2 className="text-3xl font-semibold text-gray-800 text-center md:text-2xl">Meet the Developer</h2>
                 <div className="flex flex-col items-center">
                     {team.map((member, index) => (
                         <div key={index} className="p-8 bg-white rounded-lg shadow-xl text-center max-w-md">
@@ -75,8 +75,8 @@ const About = () => {
 
             {/* Achievements Section */}
             <div className="space-y-8 bg-[#1DD4CB] py-12 rounded-lg text-white">
-                <h2 className="text-3xl font-semibold text-center">Our Achievements</h2>
-                <p className="text-lg text-center">
+                <h2 className="text-3xl font-semibold text-center px-6 md:text-2xl">Our Achievements</h2>
+                <p className="text-lg text-center px-6">
                     Since starting this project, we've built a tool that improves productivity for countless users.
                 </p>
                 <ul className="grid md:grid-cols-1 grid-cols-3 gap-6 px-6">
@@ -97,13 +97,13 @@ const About = () => {
 
             {/* Contact Section */}
             <div className="space-y-8">
-                <h2 className="text-3xl font-semibold text-gray-800 text-center">Get In Touch</h2>
+                <h2 className="text-3xl font-semibold text-gray-800 text-center md:text-2xl">Get In Touch</h2>
                 <p className="text-lg text-gray-600 text-center max-w-2xl mx-auto">
                     Have questions or want to learn more? Reach out and let's connect.
                 </p>
                 <div className="flex justify-center">
                     <button className="px-6 py-3 bg-[#2596DD] text-white rounded-md hover:bg-[#1DD4CB]">
-                        Contact Us
+                        Contact Me
                     </button>
                 </div>
             </div>

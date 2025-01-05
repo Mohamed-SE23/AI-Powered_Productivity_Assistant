@@ -1,5 +1,10 @@
-import React from 'react';
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import React from "react";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+  FaInstagram,
+} from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -22,18 +27,13 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#pricing" className="hover:text-gray-200 transition">
-                  Pricing
-                </a>
-              </li>
-              <li>
                 <a href="#blog" className="hover:text-gray-200 transition">
                   Blog
                 </a>
               </li>
               <li>
                 <a href="#contact" className="hover:text-gray-200 transition">
-                  Contact Us
+                  Contact Me
                 </a>
               </li>
             </ul>
@@ -41,7 +41,7 @@ const Footer = () => {
 
           {/* Social Media */}
           <div className="text-center">
-            <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
+            <h3 className="text-lg font-semibold mb-4">Follow Me</h3>
             <div className="flex md:justify-center justify-start gap-6 text-2xl">
               <a
                 href="https://facebook.com"
@@ -82,7 +82,8 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="mt-8 text-center border-t border-white pt-4">
           <p className="text-sm">
-            &copy; {new Date().getFullYear()} AI-Powered Productivity Assistant. All rights reserved.
+            &copy; {new Date().getFullYear()} AI-Powered Productivity Assistant.
+            All rights reserved.
           </p>
         </div>
       </div>
