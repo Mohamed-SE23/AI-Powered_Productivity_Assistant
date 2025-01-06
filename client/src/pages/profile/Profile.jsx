@@ -36,8 +36,8 @@ const Profile = () => {
     <div>
       <div className="page-container flex min-h-screen bg-gray-100 md:flex-col">
             {/* Sidebar */}
-        <div className="w-1/5 bg-white border-r p-6 md:w-full flex flex-col gap-4 items-start">
-          <ul className='flex flex-col items-start md:flex md:space-x-4 md:items-center'>
+        <div className="w-1/5 bg-white border-r p-6 md:w-full flex flex-col gap-4 items-start md:flex-row md:justify-center md:pt-8">
+          <ul className='flex flex-col items-start md:flex md:space-x-4 md:items-center md:flex-row'>
             <li
               onClick={() => setActiveTab('update-user')}
               className={`flex items-center justify-center gap-1 cursor-pointer mb-4 ${activeTab === 'update-user' ? 'font-semibold text-[#1dd4cb]' : ''}`}
@@ -59,7 +59,7 @@ const Profile = () => {
           </button>
         </div>
         {/* Content */}
-        <div className="w-5/6 lg:w-4/5 p-8 md:w-full">{renderContent()}</div>
+        <div className="w-5/6 lg:w-4/5 p-8 md:w-full sm:px-0">{renderContent()}</div>
       </div>
     </div>
   )

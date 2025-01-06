@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteNotification, fetchNotifications, selectNotifications } from "../../app/Notifications";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { selectCurrentUser } from "../../app/UserInfo";
+import { formatTime } from "../../utils/utilities";
 
 const Notifications = () => {
   const notificationsData = useSelector(selectNotifications);
@@ -48,12 +49,12 @@ const Notifications = () => {
           <option value="reminder">Reminders</option>
           <option value="insight">Insights</option>
         </select>
-        <button
+        {/* <button
           className="bg-blue-500 text-white px-4 py-2 rounded"
           onClick={handleMarkAllAsRead}
         >
           Mark All as Read
-        </button>
+        </button> */}
       </div>
 
       <div className="space-y-4">
@@ -66,10 +67,11 @@ const Notifications = () => {
               }`}
             >
               <div className="w-full">
-                <div className="flex justify-between items-start">
+                <div className="flex justify-between items-start gap-4">
                   <p className="font-semibold">{notif.message}</p>
-                  <span className="text-xs text-gray-500">
-                    {new Date(notif.timestamp).toLocaleString()}
+                  <span className="text-xs text-right text-gray-500">
+                    {/* {new Date(notif.timestamp).toLocaleString()} */}
+                    {formatTime(notif.timestamp)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">

@@ -89,7 +89,7 @@ const UpdateUser = () => {
   };
 
   return (
-    <div className="page-container max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6 -mt-6 sm:w-full">
       <h1 className="text-2xl font-bold mb-6">Update Profile</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Username Section */}
@@ -100,7 +100,7 @@ const UpdateUser = () => {
             name="username"
             value={formData.username}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
             placeholder="Edit username"
           />
         </div>
@@ -113,7 +113,7 @@ const UpdateUser = () => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
             placeholder="Edit email"
           />
         </div>
@@ -121,7 +121,7 @@ const UpdateUser = () => {
         {/* Profile Picture Section */}
         <div>
           <label className="block text-gray-700 mb-2">Profile Picture</label>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-4 sm:flex-col sm:items-start">
             <img
               src={formData.profilePic instanceof File ? URL.createObjectURL(formData.profilePic) : formData.profilePic}
               alt="Profile"
@@ -131,7 +131,7 @@ const UpdateUser = () => {
               type="file"
               name="profilePic"
               onChange={handleFileChange}
-              className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
             />
           </div>
         </div>
