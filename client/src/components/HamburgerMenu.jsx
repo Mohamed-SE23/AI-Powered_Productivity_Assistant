@@ -8,7 +8,7 @@ import AuthHeader from "./AuthHeader";
 const HamburgerMenu = ({ nav, closeMenu, navState }) => {
   const user = useSelector(selectCurrentUser);
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-[300]">
+    <div className="md:fixed md:inset-0 md:bg-black md:bg-opacity-50 md:z-[300]">
       <div className="bg-white w-[75vw] max-w-xs h-full shadow-lg p-6">
         <button
           onClick={closeMenu}

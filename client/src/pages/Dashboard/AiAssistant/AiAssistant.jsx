@@ -54,20 +54,20 @@ const AiAssistant = () => {
   }, []);
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-6">AI Assistant</h1>
+    <div className="p-6 bg-gray-100 min-h-screen -mt-8 sm:px-2">
+      <h1 className="text-3xl font-bold text-center mb-6 sm:text-2xl">AI Assistant</h1>
       {locationError && (
         <p className="text-red-500 text-center mb-4">{locationError}</p>
       )}
-      <div className="grid md:grid-cols-1 grid-cols-2 gap-6">
-        <TaskPrioritization tasks={tasks} />
+      <div className="grid sm:grid-cols-1 grid-cols-2 gap-6 mb-6">
+        {/* <TaskPrioritization tasks={tasks} /> */}
         <WeatherWidget weather={weather} />
         <DailySummary tasks={tasks} />
-        <div className="p-4 bg-white shadow-md rounded">
+      </div>
+        <div className="w-full p-4 bg-white shadow-md rounded">
           <h2 className="text-xl font-semibold mb-4">AI Insights</h2>
           <p>{aiInsights || "Loading AI insights..."}</p>
         </div>
-      </div>
     </div>
   );
 };

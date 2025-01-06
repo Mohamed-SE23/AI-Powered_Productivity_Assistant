@@ -37,7 +37,7 @@ const AuthHeader = ({closeMenu}) => {
         >
             <div className='relative flex items-center justify-center'>
             <IoIosNotificationsOutline className='w-6 h-6' />
-            <span className={notifications === 0 ? 'hidden' : 'absolute -top-1.5 text-slate-100 bg-red-600 text-[10px] w-4 h-4 flex items-center justify-center rounded-full'}>
+            <span className={notifications === 0 ? 'hidden' : 'absolute -top-1.5 text-slate-100 bg-red-600 text-[10px] w-4 h-4 flex items-center justify-center rounded-full md:left-1'}>
                 {notifications > 9 ? '+9': notifications}</span>
                 <span className='hidden md:block'>Notifications</span>
             </div>

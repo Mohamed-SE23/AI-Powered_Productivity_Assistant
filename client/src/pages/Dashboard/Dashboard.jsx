@@ -97,7 +97,7 @@ const Dashboard = () => {
       </div>
 
       {/* Content */}
-      <div className="w-5/6 lg:w-4/5 p-8 md:w-full">{renderContent()}</div>
+      <div className="w-5/6 lg:w-4/5 p-8 md:w-full sm:p-4">{renderContent()}</div>
     </div>
     </>
   )
