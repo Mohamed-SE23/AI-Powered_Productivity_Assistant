@@ -5,17 +5,13 @@ import DailySummary from "./DailySummary";
 import WeatherWidget from "./WeatherWidget";
 import axios from "axios";
 import { selectAllTasks } from "../../../app/tasksSlice";
+import Typewriter from "../../../components/TypeWriter";
 
 const AiAssistant = () => {
   const tasks = useSelector(selectAllTasks);
   const [weather, setWeather] = useState(null);
   const [aiInsights, setAiInsights] = useState("");
   const [locationError, setLocationError] = useState("");
-
-  // const promt = {`You have two upcoming tasks with low priority. 
-  // The most urgent deadline is for "My first Task," due on January 
-  // 5, 2025, followed by "Good Mooning," due on January 6, 2025. Focus on completing
-  //  "My first Task" first to meet the nearest deadline.`}
 
   useEffect(() => {
     // Get user's current location
@@ -37,7 +33,9 @@ const AiAssistant = () => {
         },
         (error) => {
           console.error("Error getting location:", error.message);
-          setLocationError("Unable to retrieve location. Using default location.");
+          setLocationError(
+            "Unable to retrieve location. Using default location."
+          );
           // Fallback to a default location
           axios
             .get("/api/v1/weather", { params: { location: "Khartoum" } })
@@ -53,26 +51,33 @@ const AiAssistant = () => {
     }
 
     // Fetch AI insights
-    axios.post("/api/v1/ai-assistant", { tasks }).then((response) =>
-      setAiInsights(response.data)
-    );
+    axios
+      .post("/api/v1/ai-assistant", { tasks })
+      .then((response) => setAiInsights(response.data));
   }, []);
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen -mt-8 sm:px-2">
-      <h1 className="text-3xl font-bold text-center mb-6 sm:text-2xl">AI Assistant</h1>
+      <h1 className="text-3xl font-bold text-center mb-6 sm:text-2xl">
+        AI Assistant
+      </h1>
       {locationError && (
         <p className="text-red-500 text-center mb-4">{locationError}</p>
       )}
       <div className="grid sm:grid-cols-1 grid-cols-2 gap-6 mb-6">
-        {/* <TaskPrioritization tasks={tasks} /> */}
         <WeatherWidget weather={weather} />
         <DailySummary tasks={tasks} />
       </div>
-        <div className="w-full p-4 bg-white shadow-md rounded">
-          <h2 className="text-xl font-semibold mb-4">AI Insights</h2>
-          <p>{aiInsights || "Loading AI insights..."}</p>
+      <div className="w-full p-4 bg-white shadow-md rounded">
+        <h2 className="text-xl font-semibold mb-4">AI Insights</h2>
+        <div className="text-gray-800 font-medium text-base">
+          {aiInsights ? (
+            <Typewriter text={aiInsights} />
+          ) : (
+            "Loading AI insights..."
+          )}
         </div>
+      </div>
     </div>
   );
 };
