@@ -12,6 +12,11 @@ const AiAssistant = () => {
   const [aiInsights, setAiInsights] = useState("");
   const [locationError, setLocationError] = useState("");
 
+  // const promt = {`You have two upcoming tasks with low priority. 
+  // The most urgent deadline is for "My first Task," due on January 
+  // 5, 2025, followed by "Good Mooning," due on January 6, 2025. Focus on completing
+  //  "My first Task" first to meet the nearest deadline.`}
+
   useEffect(() => {
     // Get user's current location
     if (navigator.geolocation) {
@@ -48,9 +53,9 @@ const AiAssistant = () => {
     }
 
     // Fetch AI insights
-    // axios.post("/api/v1/ai-assistant", { tasks }).then((response) =>
-    //   setAiInsights(response.data)
-    // );
+    axios.post("/api/v1/ai-assistant", { tasks }).then((response) =>
+      setAiInsights(response.data)
+    );
   }, []);
 
   return (

@@ -5,6 +5,8 @@ import schedule from 'node-schedule';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dns from 'dns';
+import { MongoClient, ServerApiVersion } from 'mongodb';
 import redisClient from './config/redis.js';
 import authRoutes from './routes/authRoutes.js';
 import tasksRoutes from './routes/tasksRoutes.js';
@@ -17,6 +19,9 @@ import Notifications from './models/Notifications.js';
 import { createNotification } from './services/notificationService.js';
 
 dotenv.config();
+dns.setServers(["8.8.8.8", "8.8.4.4"]); // Use Google's DNS
+// 197.252.3.122/32
+// 192.168.43.204/32 this is my ip
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -31,8 +36,19 @@ mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000,
   })
-  .then(() => console.log('Connected to MongoDB'))
+  .then(() => {
+    console.log('Connected to MongoDB');
+      // Start watching the tasks collection for changes
+      TaskModel.watch().on("change", async (change) => {
+        if (["insert", "update", "replace", "delete"].includes(change.operationType)) {
+          await redisClient.del("ai_insights");
+          await redisClient.del("tasks_last_modified");
+          console.log("Cache cleared due to task modification.");
+        }
+      });
+    })
   .catch((err) => console.error('MongoDB connection error:', err));
 
 // Test Redis connection

@@ -40,9 +40,16 @@ const TaskSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    lastModified: { type: Date, default: Date.now },
   },
   { timestamps: true }
 );
+
+// Pre-save hook to update `lastModified` before saving
+TaskSchema.pre("save", function (next) {
+  this.lastModified = Date.now();
+  next();
+});
 
 const TaskModel = mongoose.model("Task", TaskSchema);
 

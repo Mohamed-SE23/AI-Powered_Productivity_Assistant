@@ -83,9 +83,9 @@ const Dashboard = () => {
           </li>
           <li
             onClick={() => setActiveTab('aiAssistant')}
-            className={`flex items-center justify-center gap-1 cursor-pointer mb-4 ${activeTab === 'aiAssistant' ? 'font-semibold text-[#1dd4cb]' : ''}`}
+            className={`flex items-center justify-center gap-1 cursor-pointer mb-4 ${activeTab === 'aiAssistant' ? 'text-[#1dd4cb]' : ''}`}
           >
-            <img src={AIassistant} alt='assistant-img' className='-ml-0.5 -[#1dd4cb]' /><span className='md:hidden'>AI-Assistant</span>
+            <img src={AIassistant} alt='assistant-img' className='-ml-0.5 -[#1dd4cb]' /><span className='lg:text-sm md:hidden'>AI-Assistant</span>
           </li>
         </ul>
         <button 
@@ -97,7 +97,7 @@ const Dashboard = () => {
       </div>
 
       {/* Content */}
-      <div className="w-5/6 lg:w-4/5 p-8 md:w-full sm:p-4">{renderContent()}</div>
+      <div className="w-5/6 p-8 md:w-full sm:p-4">{renderContent()}</div>
     </div>
     </>
   )
