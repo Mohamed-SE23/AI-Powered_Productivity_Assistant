@@ -13,9 +13,25 @@ export const generateInsights = async () => {
   const lastModifiedKey = "tasks_last_modified";
 
   try {
-    // Fetch tasks and the latest `lastModified` timestamp from MongoDB
-    const tasks = await TaskModel.find({}, { title: 1, dueDate: 1, priority: 1, lastModified: 1 }).lean();
-    const latestModified = tasks.reduce((max, task) => (task.lastModified > max ? task.lastModified : max), new Date(0));
+    // Fetch tasks that are not completed and have not passed their due date
+    const currentDate = new Date();
+    const tasks = await TaskModel.find(
+      { 
+        completed: false, 
+        dueDate: { $gte: currentDate }  // Filter tasks with dueDate in the future or today
+      },
+      { title: 1, dueDate: 1, priority: 1, lastModified: 1 }
+    ).lean();
+
+    // If no tasks are found, return a friendly message
+    if (tasks.length === 0) {
+      return "No tasks scheduled for today. Take a break and relax!";
+    }
+
+    const latestModified = tasks.reduce(
+      (max, task) => (task.lastModified > max ? task.lastModified : max),
+      new Date(0)
+    );
 
     // Retrieve last modified timestamp from Redis
     const cachedLastModified = await redisClient.get(lastModifiedKey);
@@ -30,19 +46,25 @@ export const generateInsights = async () => {
     }
 
     // Format tasks for the prompt
-    const tasksSummary = tasks.map(task => ({
+    const tasksSummary = tasks.map((task) => ({
       title: task.title,
-      dueDate: task.dueDate,
+      dueDate: task.dueDate.toISOString(), // Ensure date format is compatible
       priority: task.priority,
     }));
 
-    // Prepare a concise-focused prompt
+    // Enhanced prompt for better AI insights
     const prompt = `
-      Here are some tasks:
-      ${tasksSummary.map(task =>
-        `- Title: ${task.title}, Due Date: ${task.dueDate}, Priority: ${task.priority}`
-      ).join("\n")}
-      Provide a concise summary focusing on key priorities and urgent deadlines. Avoid listing all tasks, and highlight only the most critical information.
+      Here are some tasks that need attention:
+      ${tasksSummary
+        .map(
+          (task) =>
+            `- Title: "${task.title}", Due Date: ${task.dueDate}, Priority: ${task.priority}`
+        )
+        .join("\n")}
+      Focus on providing a concise summary. Highlight from the most urgent tasks and their deadlines and then the lower urgent tasks. 
+      Emphasize tasks that require immediate attention, such as those with high priority or those with upcoming deadlines. 
+      Avoid listing completed or past due tasks, and focus on actionable tasks for today and the next few days.
+      Keep the response brief, actionable, and clear.
     `;
 
     const response = await openai.chat.completions.create({
@@ -50,7 +72,7 @@ export const generateInsights = async () => {
       messages: [
         { role: "user", content: prompt },
       ],
-      max_tokens: 150,
+      max_tokens: 150, // Limit tokens for concise responses
     });
 
     const insight = response.choices[0].message.content.trim();
