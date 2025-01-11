@@ -6,7 +6,6 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dns from 'dns';
-import { MongoClient, ServerApiVersion } from 'mongodb';
 import redisClient from './config/redis.js';
 import authRoutes from './routes/authRoutes.js';
 import tasksRoutes from './routes/tasksRoutes.js';
@@ -20,12 +19,9 @@ import { createNotification } from './services/notificationService.js';
 
 dotenv.config();
 dns.setServers(["8.8.8.8", "8.8.4.4"]); // Use Google's DNS
-// 197.252.3.122/32
-// 192.168.43.204/32 this is my ip
 
 const app = express();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.resolve();
 
 app.use(express.json()); // Parse JSON bodies
 app.use(bodyParser.json());

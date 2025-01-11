@@ -123,7 +123,7 @@ const UpdateUser = () => {
           <label className="block text-gray-700 mb-2">Profile Picture</label>
           <div className="flex items-center gap-4 sm:flex-col sm:items-start">
             <img
-              src={formData.profilePic instanceof File ? URL.createObjectURL(formData.profilePic) : formData.profilePic}
+              src={formData.profilePic instanceof File ? URL.createObjectURL(formData.profilePic) : `http://localhost:5000${formData.profilePic}`}
               alt="Profile"
               className="w-16 h-16 rounded-full object-cover"
             />

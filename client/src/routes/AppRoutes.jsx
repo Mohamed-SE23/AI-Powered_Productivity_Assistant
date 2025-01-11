@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { nav } from "../components/nav";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../app/UserInfo";
@@ -10,6 +10,8 @@ export const RenderRoutes = () => {
 
     return (
         <Routes location={location} key={location.pathname}>
+            {user.isAuth ? (<Route path="/" element={<Navigate to={`/${user.id}/dashboard`} />} />) :
+            (<Route path="*" element={ <Navigate to="/" />} />)}
             {nav.map((r, i) => {
                 // Allow private routes only if user is authenticated
                 if (user.isAuth && r.isPrivate) {

@@ -4,7 +4,7 @@ import { createUser, deleteUser, loginUser } from '../services/authService.js';
 export const signup = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    const profilePic = req.file ? `/uploads/${req.file.filename}` : null; // Create public URL
+    const profilePic = req.file ? `/uploads/${req.file.filename.replace(/\\/g, '/')}` : null; // Create public URL
 
     // Validate input
     if (!username || !email || !password) {

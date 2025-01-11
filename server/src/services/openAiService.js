@@ -14,7 +14,8 @@ export const generateInsights = async () => {
 
   try {
     // Fetch tasks that are not completed and have not passed their due date
-    const currentDate = new Date();
+    const now = new Date();
+    const currentDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
     const tasks = await TaskModel.find(
       { 
         completed: false, 
