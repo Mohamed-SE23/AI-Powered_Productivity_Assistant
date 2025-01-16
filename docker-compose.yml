@@ -8,6 +8,9 @@ services:
       - "3000:80" # Map nginx port to localhost
     depends_on:
       - backend
+    volumes:
+      - ./client:/app
+    command: yarn run dev
 
   backend:
     build:
@@ -21,6 +24,9 @@ services:
       - MONGO_URI=mongodb+srv://mohamedisaac001:x5ZgiuRuaab1t3vF@cluster0.cmudw.mongodb.net/ai-productivity?retryWrites=true&w=majority&appName=Cluster0 # Replace with your MongoDB Atlas URI
     depends_on:
       - redis
+    volumes:
+      - ./server:/app
+    command: npm run dev
 
   redis:
     image: "redis:latest"
@@ -30,11 +36,3 @@ services:
 
 volumes:
   redis-data:
-
-volumes:
-  - ./client:/app
-  command: yarn run dev
-
-volumes:
-  - ./server:/app
-  command: npm run dev
