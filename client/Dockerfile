@@ -1,27 +1,27 @@
-# Dockerfile (client)
+# Stage 1: Build the project
 FROM node:18-alpine AS build
 
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and yarn.lock
-COPY package.json yarn.lock ./
-
 # Install dependencies
-RUN yarn install
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
-# Copy the rest of the code
-COPY . .
+# Copy application files
+COPY . ./
 
-# Build the project
+# Build the React app
 RUN yarn build
 
-# Serve using nginx for production
+# Stage 2: Serve the app using nginx
 FROM nginx:alpine
+
+# Copy built app from Stage 1
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expose port
+# Expose port 80
 EXPOSE 80
 
-# Start nginx
+# Start nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
