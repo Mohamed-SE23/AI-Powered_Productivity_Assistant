@@ -1,0 +1,30 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.mohamed199 }}
+          password: ${{ secrets.1b0rn@I999 }}
+
+      - name: Build and push client image
+        run: |
+          docker build -t mohamed199/client ./client
+          docker push mohamed199/client
+
+      - name: Build and push server image
+        run: |
+          docker build -t mohamed199/server ./server
+          docker push mohamed199/server
