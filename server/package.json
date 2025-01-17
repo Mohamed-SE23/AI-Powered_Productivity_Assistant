@@ -2,6 +2,11 @@
     "name": "ai-ppa",
     "version": "1.0.0",
     "description": "",
+    "type": "module",
+    "exports": {
+        ".": "./src/app.mjs",
+        "./commonjs": "./src/app.cjs"
+      },
     "scripts": {
         "start": "node src/app.js",
         "build": "babel src --out-dir dist",
