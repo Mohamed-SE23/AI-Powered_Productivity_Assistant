@@ -58,13 +58,11 @@ const Signin = () => {
               setLoading(false); // end loading
               dispatch(setUser(response.data.user));
               dispatch(setUserAuthenticated(true));
-              console.log('User is logged in successfully:', response);
               navigate(`/${response.data.user.id}/dashboard`);
       
             } catch (error) {
               setLoading(false); // end loading
               toast.error(`${error.response.data.message}`);
-              console.log('Error submitting form:', error);
             }
           }
     };

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const MenuItems = ({ r, navState }) => {
-    const user = { name: "mohamed", userId: "4522" };
+    const user = JSON.parse(localStorage.getItem('user'));
 
     return (
         <>

@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      // Proxy API requests to the Flask backend
+      // Proxy API requests to the Node backend
       '/api': {
-        target: 'http://127.0.0.1:5000',  // Flask backend URL
-        // target: 'https://api.techstoreplatform.tech/',  // Flask backend URL
+        // target: 'http://127.0.0.1:5000',  // Node backend URL
+        target: 'https://ai-powered-productivity-assistant.onrender.com',  // Node backend URL
         changeOrigin: true,
         secure: false,
       },

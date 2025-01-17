@@ -7,18 +7,6 @@ const serverUrl = "/api/v1";
 // get the token 
 const user = JSON.parse(localStorage.getItem('user'));
 
-// Thunks for async operations
-//  ----------------- fetch all tasks ---------------------
-// export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
-//   const token = user.token;
-//   const response = await axios.get(`${serverUrl}/tasks`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   return response.data.tasks;
-// });
-
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
   const user = JSON.parse(localStorage.getItem('user')); // Assuming user is stored in localStorage
   const userId = user?.id;

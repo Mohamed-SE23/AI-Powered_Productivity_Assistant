@@ -7,12 +7,6 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../pages/profile/Profile";
 import Notifications from "../pages/notifications/Notifications";
 
-// const Home = lazy(() => import("../pages/Home/Home"));
-// const About = lazy(() => import("../pages/About/About"));
-// const Signin = lazy(() => import("../pages/signin/Signin"));
-// const Signup = lazy(() => import("../pages/signup/Signup"));
-// const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
-
 export const nav = [
     {
         path: "/",

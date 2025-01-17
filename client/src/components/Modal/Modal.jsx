@@ -48,7 +48,6 @@ function Modal() {
       dispatch(updateTask(task));
     } else if (modalMode === "add") {
       dispatch(createTask(task));
-      console.log(task)
     }
     dispatch(closeModal());
   };

@@ -43,7 +43,6 @@ const ResetPassword = () => {
         }
       );
 
-      console.log('Password updated:', response.data);
       toast.success('Password updated successfully!');
       setFormData({
         currentPassword: '',

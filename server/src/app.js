@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import schedule from 'node-schedule';
 import bodyParser from 'body-parser';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import dns from 'dns';
 import redisClient from './config/redis.js';
 import authRoutes from './routes/authRoutes.js';

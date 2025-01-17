@@ -70,16 +70,11 @@ const Signup = () => {
                     },
                 });
                 setLoading(false); // End loading
-                console.log("Form submitted successfully:", response);
                 toast.success(`${response.data.message}`);
                 navigate("/signin");
             } catch (error) {
                 setLoading(false); // End loading
                 toast.error(`${error.response?.data.message || error.message}`);
-                console.log(
-                    "Error submitting form:",
-                    error.response?.data || error.message
-                );
             }
         }
     };

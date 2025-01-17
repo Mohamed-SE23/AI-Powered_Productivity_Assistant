@@ -51,7 +51,7 @@ const AuthHeader = ({closeMenu}) => {
                     : 'hover:text-[#1DD4CB] transition flex items-center gap-2 duration-300 ease-in-out'
             }
         >
-            <img src={`http://localhost:5000${user.profile_pic}`} alt='profile-img' className='h-8 w-8 rounded-full object-cover'/>
+            <img src={`https://ai-powered-productivity-assistant.onrender.com${user.profile_pic}`} alt='profile-img' className='h-8 w-8 rounded-full object-cover'/>
             <span className='hidden md:block'>Profile</span>
         </NavLink>
     </div>

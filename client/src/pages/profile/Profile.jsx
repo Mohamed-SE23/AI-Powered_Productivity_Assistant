@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
 import UpdateUser from './UpdateUser';
 import ResetPassword from './ResetPassword';
-import { useDispatch, useSelector } from 'react-redux';
-import { clearUser, selectCurrentUser } from '../../app/UserInfo';
+import { useDispatch } from 'react-redux';
+import { clearUser } from '../../app/UserInfo';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
-import axios from 'axios';
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState('update-user');
-  const user = useSelector(selectCurrentUser);
 
     // Logout function
     const dispatch = useDispatch();
