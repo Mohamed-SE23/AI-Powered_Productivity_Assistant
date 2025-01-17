@@ -15,6 +15,9 @@
         "dev": "nodemon src/app.js",
         "test": "./node_modules/.bin/mocha --require @babel/register --exit"
     },
+    "engines": {
+        "node": ">=18.18.0 <19.0.0"
+        },
     "author": "",
     "license": "ISC",
     "dependencies": {
