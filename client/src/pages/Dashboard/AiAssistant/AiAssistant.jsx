@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import TaskPrioritization from "./TaskPrioritization";
+// import TaskPrioritization from "./TaskPrioritization";
 import DailySummary from "./DailySummary";
 import WeatherWidget from "./WeatherWidget";
 import axios from "axios";
 import { selectAllTasks } from "../../../app/tasksSlice";
-import Typewriter from "../../../components/TypeWriter";
+import Typewriter from "../../../components/Typewriter";
 
 const AiAssistant = () => {
   const tasks = useSelector(selectAllTasks);

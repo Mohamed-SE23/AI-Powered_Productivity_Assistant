@@ -26,13 +26,11 @@ app.use(express.json()); // Parse JSON bodies
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+console.log(process.env.MONGO_URI)
+
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 30000,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log('Connected to MongoDB');
       // Start watching the tasks collection for changes

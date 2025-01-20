@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, lazy, Suspense, ErrorBoundary } from 'react'
 import { FaTasks } from "react-icons/fa";
 import Tasks from './Tasks/Tasks';
 import Completed from './Tasks/Completed';
@@ -10,9 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearUser, selectCurrentUser } from '../../app/UserInfo';
 import { useNavigate } from 'react-router-dom';
 import AIassistant from '../../assets/AiAssistant.svg';
-import Modal from '../../components/Modal/Modal';
+// import Modal from '../../components/Modal/Modal';
 import { selectIsEditing } from '../../app/tasksSlice';
 import { fetchNotifications } from '../../app/Notifications';
+
+const Modal = lazy(() => import("../../components/Modal/Modal"));
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('tasks');
@@ -52,7 +54,10 @@ const Dashboard = () => {
 
   return (
     <>
-    {isEditing && <Modal />}
+    {isEditing &&
+    <Suspense fallback={<div>Loading...</div>}>
+        <Modal />
+    </Suspense>}
     <div className="page-container flex min-h-screen bg-gray-100 md:flex-col">
       {/* Sidebar */}
       <div className="w-1/5 bg-white border-r p-6 md:w-full flex flex-col gap-4 items-start md:flex-row md:justify-center md:pt-9">
