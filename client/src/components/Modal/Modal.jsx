@@ -9,7 +9,7 @@ import {
   createTask,
   updateTask,
   setTaskField,
-} from "../../app/tasksSlice.js"; // Import actions and selectors from the task slice
+} from "../../app/tasksSlice.js";
 
 function Modal() {
   const dispatch = useDispatch();
@@ -52,10 +52,9 @@ function Modal() {
     dispatch(closeModal());
   };
 
-  // handle cancel button
   const handleCanceling = () => {
     dispatch(closeModal());
-  }
+  };
 
   return (
     <div className="fixed left-0 top-0 z-[500] h-full w-full bg-[#333]/30 overflow-hidden">
@@ -90,6 +89,28 @@ function Modal() {
           />
         </div>
         <div className="flex flex-col gap-1">
+          <label htmlFor="startDate">Start Date</label>
+          <input
+            className="bg-[#F9F9F9] p-2 rounded-md border"
+            type="date"
+            name="startDate"
+            value={task.startDate ? task.startDate.split("T")[0] : ""}
+            onChange={handleInput("startDate")}
+            required
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <label htmlFor="dueDate">Due Date</label>
+          <input
+            className="bg-[#F9F9F9] p-2 rounded-md border"
+            type="date"
+            name="dueDate"
+            value={task.dueDate ? task.dueDate.split("T")[0] : ""}
+            onChange={handleInput("dueDate")}
+            required
+          />
+        </div>
+        <div className="flex flex-col gap-1">
           <label htmlFor="priority">Select Priority</label>
           <select
             className="bg-[#F9F9F9] p-2 rounded-md border cursor-pointer"
@@ -101,17 +122,6 @@ function Modal() {
             <option value="medium">Medium</option>
             <option value="high">High</option>
           </select>
-        </div>
-        <div className="flex flex-col gap-1">
-          <label htmlFor="dueDate">Due Date</label>
-          <input
-            className="bg-[#F9F9F9] p-2 rounded-md border"
-            type="date"
-            name="dueDate"
-            value={task.dueDate ? task.dueDate.split('T')[0] : ""}
-            onChange={handleInput("dueDate")}
-            required
-          />
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="completed">Task Completed</label>
@@ -130,7 +140,8 @@ function Modal() {
           <button
             type="button"
             onClick={handleCanceling}
-            className="text-slate-50 bg-gray-600 rounded-md py-2 w-full hover:bg-gray-500">
+            className="text-slate-50 bg-gray-600 rounded-md py-2 w-full hover:bg-gray-500"
+          >
             Cancel
           </button>
           <button

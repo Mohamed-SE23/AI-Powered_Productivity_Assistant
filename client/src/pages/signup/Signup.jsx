@@ -98,6 +98,7 @@ const Signup = () => {
                         <input
                             type="text"
                             name="username"
+                            placeholder="your username"
                             value={formData.username}
                             onChange={handleInputChange}
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb]"
@@ -111,6 +112,7 @@ const Signup = () => {
                         <input
                             type="email"
                             name="email"
+                            placeholder="example@gmail.com"
                             value={formData.email}
                             onChange={handleInputChange}
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb]"
@@ -120,7 +122,7 @@ const Signup = () => {
                         )}
                     </div>
                     <div>
-                        <label className="block text-gray-700">Profile Picture</label>
+                        <label className="block text-gray-700">Profile Picture (optional) :</label>
                         <input
                             type="file"
                             accept="image/*"
@@ -133,6 +135,7 @@ const Signup = () => {
                         <input
                             type={showPassword ? "text" : "password"}
                             name="password"
+                            placeholder="your password"
                             value={formData.password}
                             onChange={handleInputChange}
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb]"
@@ -152,6 +155,7 @@ const Signup = () => {
                         <input
                             type={showPassword ? "text" : "password"}
                             name="confirmPassword"
+                            placeholder="confirm your password..."
                             value={formData.confirmPassword}
                             onChange={handleInputChange}
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb]"

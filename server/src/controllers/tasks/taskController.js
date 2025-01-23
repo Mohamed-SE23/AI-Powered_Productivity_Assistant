@@ -5,7 +5,7 @@ import TaskModel from "../../models/tasks/TaskModel.js";
 // ------------------- Create Task ----------------------
 export const createTaskHandler = asyncHandler(async (req, res) => {
     try {
-        const { title, description, dueDate, priority, completed } = req.body;
+        const { title, description, startDate, dueDate, priority, completed } = req.body;
 
         if (!title || title.trim() === "") {
             return res.status(400).json({ message: "Title is required!" });
@@ -15,7 +15,7 @@ export const createTaskHandler = asyncHandler(async (req, res) => {
             return res.status(400).json({ message: "Description is required!" });
           }
 
-          const newTask = await createTask({ title, description, dueDate, priority, completed,user: req.user._id, });
+          const newTask = await createTask({ title, description, startDate, dueDate, priority, completed,user: req.user._id, });
 
           console.log('task created successfully', newTask)
           return res.status(201).json(newTask);
@@ -102,7 +102,7 @@ export const getTasks = asyncHandler(async (req, res) => {
       const userId = req.user._id;
   
       const { id } = req.params;
-      const { title, description, dueDate, priority, status, completed } =
+      const { title, description, startDate, dueDate, priority, status, completed } =
         req.body;
   
       if (!id) {
@@ -123,6 +123,7 @@ export const getTasks = asyncHandler(async (req, res) => {
       // update the task with the new data if provided or keep the old data
       task.title = title || task.title;
       task.description = description || task.description;
+      task.startDate = startDate || task.startDate;
       task.dueDate = dueDate || task.dueDate;
       task.priority = priority || task.priority;
       task.status = status || task.status;

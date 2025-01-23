@@ -1,7 +1,7 @@
 import { createClient } from 'redis';
 
 const redisClient = createClient({
-  url: process.env.REDIS_URL, // Use environment variable for Redis URL
+  url: process.env.REDIS_URL || 'redis://localhost:6379', // Use environment variable for Redis URL
   socket: {
     tls: false, // Set to true if using a secure connection
   },

@@ -75,7 +75,7 @@ const About = () => {
 
             {/* Achievements Section */}
             <div className="space-y-8 bg-[#1DD4CB] py-12 rounded-lg text-white">
-                <h2 className="text-3xl font-semibold text-center px-6 md:text-2xl">Our Achievements</h2>
+                <h2 className="text-3xl font-semibold text-center px-6 md:text-2xl">My Achievements</h2>
                 <p className="text-lg text-center px-6">
                     Since starting this project, we've built a tool that improves productivity for countless users.
                 </p>

@@ -13,9 +13,14 @@ const TaskSchema = new mongoose.Schema(
       default: "No description",
     },
 
+    startDate: {
+      type: Date,
+      default: Date.now, // Set the default start date to the current date
+    },
+
     dueDate: {
       type: Date,
-      default: Date.now(),
+      default: Date.now, // Default due date is the current date
     },
 
     status: {
@@ -40,7 +45,10 @@ const TaskSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    lastModified: { type: Date, default: Date.now },
+    lastModified: { 
+      type: Date, 
+      default: Date.now 
+    },
   },
   { timestamps: true }
 );
@@ -53,4 +61,4 @@ TaskSchema.pre("save", function (next) {
 
 const TaskModel = mongoose.model("Task", TaskSchema);
 
-export default TaskModel; 
+export default TaskModel;
