@@ -5,6 +5,7 @@ import schedule from 'node-schedule';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cors from 'cors';
 import redisClient from './config/redis.js';
 import authRoutes from './routes/authRoutes.js';
 import tasksRoutes from './routes/tasksRoutes.js';
@@ -21,10 +22,27 @@ dotenv.config();
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const allowedOrigins = [
+  "https://ai-powered-productivity-assistant.vercel.app/", // Add your Vercel domain here
+];
 
 app.use(express.json()); // Parse JSON bodies
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// allow cors origin
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Allow cookies if needed
+  })
+);
 
 // Connect to MongoDB
 mongoose
@@ -37,7 +55,7 @@ redisClient.connect().catch(console.error);
 
 // Schedule task-based notifications
 schedule.scheduleJob("*/1 * * * *", async () => {
-  console.log("Scheduled job executed at:", new Date());
+  // console.log("Scheduled job executed at:", new Date());
   const now = new Date();
   const upcomingThreshold = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 
