@@ -22,7 +22,7 @@ const CalendarPage = () => {
 
         const formattedEvents = data.tasks.map((task) => ({
           title: task.title,
-          start: new Date(task.createdAt), // Task creation as start date
+          start: new Date(task.startDate), // Task creation as start date
           end: new Date(task.dueDate), // Task due date
           description: task.description,
           priority: task.priority,
@@ -56,7 +56,7 @@ const CalendarPage = () => {
           events={events}
           startAccessor="start"
           endAccessor="end"
-          style={{ height: "85vh" }}
+          style={{ height: "100vh" }}
           onSelectEvent={handleSelectEvent}
           defaultView={view}
           views={[Views.DAY, Views.WEEK, Views.MONTH]}

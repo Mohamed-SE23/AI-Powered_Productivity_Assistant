@@ -66,7 +66,7 @@ function Modal() {
         <div className="flex flex-col gap-1">
           <label htmlFor="title">Title</label>
           <input
-            className="bg-[#F9F9F9] p-2 rounded-md border"
+            className="bg-[#F9F9F9] px-2 py-1 rounded-md border"
             type="text"
             id="title"
             placeholder="Task Title"
@@ -79,10 +79,10 @@ function Modal() {
         <div className="flex flex-col gap-1">
           <label htmlFor="description">Description</label>
           <textarea
-            className="bg-[#F9F9F9] p-2 rounded-md border resize-none"
+            className="bg-[#F9F9F9] px-2 py-1 rounded-md border resize-none"
             name="description"
             placeholder="Task Description"
-            rows="4"
+            rows="3"
             value={task.description || ""}
             onChange={handleInput("description")}
             required
@@ -91,7 +91,7 @@ function Modal() {
         <div className="flex flex-col gap-1">
           <label htmlFor="startDate">Start Date</label>
           <input
-            className="bg-[#F9F9F9] p-2 rounded-md border"
+            className="bg-[#F9F9F9] px-2 py-1 rounded-md border"
             type="date"
             name="startDate"
             value={task.startDate ? task.startDate.split("T")[0] : ""}
@@ -102,7 +102,7 @@ function Modal() {
         <div className="flex flex-col gap-1">
           <label htmlFor="dueDate">Due Date</label>
           <input
-            className="bg-[#F9F9F9] p-2 rounded-md border"
+            className="bg-[#F9F9F9] px-2 py-1 rounded-md border"
             type="date"
             name="dueDate"
             value={task.dueDate ? task.dueDate.split("T")[0] : ""}
@@ -113,7 +113,7 @@ function Modal() {
         <div className="flex flex-col gap-1">
           <label htmlFor="priority">Select Priority</label>
           <select
-            className="bg-[#F9F9F9] p-2 rounded-md border cursor-pointer"
+            className="bg-[#F9F9F9] px-2 py-1 rounded-md border cursor-pointer"
             name="priority"
             value={task.priority || "low"}
             onChange={handleInput("priority")}
@@ -126,7 +126,7 @@ function Modal() {
         <div className="flex flex-col gap-1">
           <label htmlFor="completed">Task Completed</label>
           <select
-            className="bg-[#F9F9F9] p-2 rounded-md border cursor-pointer"
+            className="bg-[#F9F9F9] px-2 py-1 rounded-md border cursor-pointer"
             name="completed"
             value={task.completed}
             onChange={handleInput("completed")}
@@ -136,7 +136,7 @@ function Modal() {
           </select>
         </div>
 
-        <div className="flex items-center justify-between gap-4 mt-8">
+        <div className="flex items-center justify-between gap-4 mt-4">
           <button
             type="button"
             onClick={handleCanceling}

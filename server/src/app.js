@@ -1,9 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import schedule from 'node-schedule';
 import bodyParser from 'body-parser';
 import path from 'path';
-import dns from 'dns';
+import { fileURLToPath } from 'url';
 import redisClient from './config/redis.js';
 import authRoutes from './routes/authRoutes.js';
 import tasksRoutes from './routes/tasksRoutes.js';
@@ -16,46 +17,27 @@ import Notifications from './models/Notifications.js';
 import { createNotification } from './services/notificationService.js';
 
 dotenv.config();
-dns.setServers(["8.8.8.8", "8.8.4.4"]); // Use Google's DNS
 
 const app = express();
-const __dirname = path.resolve();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(express.json()); // Parse JSON bodies
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-console.log(process.env.MONGO_URI);
-
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log('Connected to MongoDB');
-
-    // Start watching the tasks collection for changes
-    TaskModel.watch().on('change', async (change) => {
-      console.log('Change detected in TaskModel:', change);
-
-      if (['insert', 'update', 'replace', 'delete'].includes(change.operationType)) {
-        // Clear cache related to tasks
-        await redisClient.del('ai_insights');
-        await redisClient.del('tasks_last_modified');
-        console.log('Cache cleared due to task modification.');
-
-        // Run the notification job
-        await handleTaskNotifications();
-      }
-    });
-  })
+  .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
 // Test Redis connection
 redisClient.connect().catch(console.error);
 
-// Function to handle task-based notifications
-const handleTaskNotifications = async () => {
-  console.log('Notification job executed at:', new Date());
+// Schedule task-based notifications
+schedule.scheduleJob("*/1 * * * *", async () => {
+  console.log("Scheduled job executed at:", new Date());
   const now = new Date();
   const upcomingThreshold = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 
@@ -67,8 +49,8 @@ const handleTaskNotifications = async () => {
       // Fetch tasks that are incomplete and due soon
       const tasks = await TaskModel.find({
         user: user._id,
-        completed: false,
-        dueDate: { $gte: now, $lte: upcomingThreshold }, // Filter for tasks due soon
+        completed: "false",
+        dueDate: { $gte: now - 24 * 60 * 60 * 1000, $lte: upcomingThreshold }, // Filter for future tasks only
       });
 
       for (const task of tasks) {
@@ -77,7 +59,7 @@ const handleTaskNotifications = async () => {
         // Check if a similar notification already exists
         const existingNotification = await Notifications.findOne({
           userId: user._id,
-          type: 'reminder',
+          type: "reminder",
           message,
         });
 
@@ -85,7 +67,7 @@ const handleTaskNotifications = async () => {
           // Create notification if it doesn't exist
           const notification = {
             userId: user._id,
-            type: 'reminder',
+            type: "reminder",
             message,
             timestamp: now,
           };
@@ -95,9 +77,10 @@ const handleTaskNotifications = async () => {
       }
     }
   } catch (error) {
-    console.error('Error creating notifications for tasks:', error);
+    console.error("Error creating notifications for tasks:", error);
   }
-};
+});
+
 
 // Routes
 app.use('/api/v1', authRoutes);
