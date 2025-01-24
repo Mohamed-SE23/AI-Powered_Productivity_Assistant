@@ -19,7 +19,7 @@ export const generateInsights = async (userId) => {
     const tasks = await TaskModel.find(
       { 
         userId,
-        completed: false, 
+        completed: false,
         dueDate: { $gte: currentDate }  // Filter tasks with dueDate in the future or today
       },
       { title: 1, dueDate: 1, priority: 1, lastModified: 1 }
