@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useDetectOutside from "../../hooks/useDetectOutside.js";

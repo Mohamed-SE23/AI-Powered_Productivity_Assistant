@@ -14,7 +14,7 @@ import AIassistant from '../../assets/AiAssistant.svg';
 import { selectIsEditing } from '../../app/tasksSlice';
 import { fetchNotifications } from '../../app/Notifications';
 
-const Modal = lazy(() => import("../../components/Modal/Modal"));
+const Modal = lazy(() => import("../../components/ModalPage/Modal"));
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('tasks');

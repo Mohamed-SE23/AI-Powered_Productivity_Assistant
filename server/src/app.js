@@ -5,7 +5,7 @@ import schedule from 'node-schedule';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import cors from 'cors';
+// import cors from 'cors';
 import redisClient from './config/redis.js';
 import authRoutes from './routes/authRoutes.js';
 import tasksRoutes from './routes/tasksRoutes.js';
@@ -22,27 +22,27 @@ dotenv.config();
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const allowedOrigins = [
-  "https://ai-powered-productivity-assistant.vercel.app/", // Add your Vercel domain here
-];
+// const allowedOrigins = [
+//   "https://ai-powered-productivity-assistant.vercel.app/",
+// ];
 
 app.use(express.json()); // Parse JSON bodies
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // allow cors origin
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // Allow cookies if needed
-  })
-);
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true, // Allow cookies if needed
+//   })
+// );
 
 // Connect to MongoDB
 mongoose
@@ -72,7 +72,7 @@ schedule.scheduleJob("*/1 * * * *", async () => {
       });
 
       for (const task of tasks) {
-        const message = `Task "${task.title}" is due on ${task.dueDate.toDateString()}. Priority: ${task.priority}.`;
+        const message = `⏰ Reminder: Your task "${task.title}" is due on ${task.dueDate.toDateString()}! 📅 Priority: ${task.priority.toUpperCase()} 🔥. Stay on track and make it happen! 💪`;
 
         // Check if a similar notification already exists
         const existingNotification = await Notifications.findOne({
@@ -109,4 +109,4 @@ app.use('/api/v1', notificationRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port:${PORT}`));
