@@ -73,7 +73,7 @@ const UpdateUser = () => {
     }
 
     try {
-      const response = await axios.delete('/api/v1/delete-account', {
+      const response = await axios.delete('https://ai-powered-productivity-assistant.onrender.com/api/v1/delete-account', {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
