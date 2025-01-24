@@ -17,6 +17,9 @@ const AiAssistant = () => {
   const [aiInsights, setAiInsights] = useState("");
   const [locationError, setLocationError] = useState("");
 
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = user?.token;
+
   useEffect(() => {
     // Get user's current location
     // if (navigator.geolocation) {
@@ -56,7 +59,13 @@ const AiAssistant = () => {
 
     // Fetch AI insights
     axios
-      .post("https://ai-powered-productivity-assistant.onrender.com/api/v1/ai-assistant", { tasks })
+      .post("https://ai-powered-productivity-assistant.onrender.com/api/v1/ai-assistant", { tasks },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      )
       .then((response) => setAiInsights(response.data));
   }, []);
 
