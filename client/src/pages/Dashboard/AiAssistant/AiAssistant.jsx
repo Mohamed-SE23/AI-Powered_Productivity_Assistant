@@ -66,7 +66,9 @@ const AiAssistant = () => {
           }
         }
       )
-      .then((response) => setAiInsights(response.data));
+      .then((response) => {
+        console.log(response);
+        setAiInsights(response.data)});
   }, []);
 
   return (
