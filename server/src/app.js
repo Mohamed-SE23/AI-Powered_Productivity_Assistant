@@ -5,7 +5,7 @@ import schedule from 'node-schedule';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
-// import cors from 'cors';
+import cors from 'cors';
 import redisClient from './config/redis.js';
 import authRoutes from './routes/authRoutes.js';
 import tasksRoutes from './routes/tasksRoutes.js';
