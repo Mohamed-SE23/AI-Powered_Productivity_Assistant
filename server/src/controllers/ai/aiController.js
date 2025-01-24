@@ -1,3 +1,5 @@
+import { generateInsights } from "../../services/openAiService.js";
+
 export const generateAiInsights = async (req, res) => {
   try {
     const userId = req.user?.id; // Assuming you have user information from middleware (e.g., JWT auth)
