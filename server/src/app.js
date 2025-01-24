@@ -22,27 +22,28 @@ dotenv.config();
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-// const allowedOrigins = [
-//   "https://ai-powered-productivity-assistant.vercel.app/",
-// ];
+const allowedOrigins = [
+  'http://localhost:5173', // For local development
+  'https://ai-powered-productivity-assistant.vercel.app', // Your Vercel deployment
+];
 
 app.use(express.json()); // Parse JSON bodies
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // allow cors origin
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error("Not allowed by CORS"));
-//       }
-//     },
-//     credentials: true, // Allow cookies if needed
-//   })
-// );
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Allow cookies if needed
+  })
+);
 
 // Connect to MongoDB
 mongoose
