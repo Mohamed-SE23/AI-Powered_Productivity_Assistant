@@ -58,18 +58,27 @@ export const generateInsights = async (userId) => {
 
     // Enhanced prompt for better AI insights
     const prompt = `
-      Here are some tasks that need attention:
-      ${tasksSummary
-        .map(
-          (task) =>
-            `- Title: "${task.title}", Due Date: ${task.dueDate}, Priority: ${task.priority}`
-        )
-        .join("\n")}
-      Focus on providing a concise summary. Highlight from the most urgent tasks and their deadlines and then the lower urgent tasks. 
-      Emphasize tasks that require immediate attention, such as those with high priority or those with upcoming deadlines. 
-      Avoid listing completed or past due tasks, and focus on actionable tasks for today and the next few days.
-      Keep the response brief, actionable, and clear.
-    `;
+    The following are tasks that need attention, grouped by priority and urgency. 
+    Please provide a concise, actionable summary, emphasizing tasks with the highest priority or the most immediate deadlines. 
+    Focus on the most urgent tasks first, and briefly highlight the lower-priority tasks for the next few days.
+  
+    Tasks Summary:
+    ${tasksSummary
+      .map(
+        (task, index) =>
+          `${index + 1}. "${task.title}" | Due: ${task.dueDate} | Priority: ${task.priority}`
+      )
+      .join("\n")}
+  
+    Generate insights by:
+    - Identifying the top 2-3 tasks requiring immediate action.
+    - Highlighting key deadlines and priorities for today and the next few days.
+    - Keeping the response brief, actionable, and clear.
+    - Avoiding unnecessary repetition of the task details.
+  
+    Use clear, bullet-pointed insights or a short paragraph summary.
+  `;
+  
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
