@@ -49,7 +49,7 @@ const Signin = () => {
             setLoading(true); // Start loading
       
             try {
-              const response = await axios.post('/api/v1/signin', data, {
+              const response = await axios.post('https://ai-powered-productivity-assistant.onrender.com/api/v1/signin', data, {
                 headers: {
                   'Content-Type': 'application/json',
                   'Access-Control-Allow-Origin': '*',

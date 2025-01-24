@@ -16,7 +16,7 @@ const CalendarPage = () => {
       const userId = user?.id;
 
       try {
-        const { data } = await axios.get("/api/v1/tasks", {
+        const { data } = await axios.get("https://ai-powered-productivity-assistant.onrender.com/api/v1/tasks", {
           params: { userId },
         });
 

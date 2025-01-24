@@ -30,7 +30,7 @@ const ResetPassword = () => {
 
     try {
       const response = await axios.put(
-        '/api/v1/reset-password',
+        'https://ai-powered-productivity-assistant.onrender.com/api/v1/reset-password',
         {
           currentPassword: formData.currentPassword,
           newPassword: formData.newPassword,

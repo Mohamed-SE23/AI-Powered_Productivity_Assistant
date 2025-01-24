@@ -6,7 +6,7 @@ export const fetchNotifications = createAsyncThunk(
   'notifications/fetchNotifications',
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/v1/notifications?userId=${userId}`);
+      const response = await axios.get(`https://ai-powered-productivity-assistant.onrender.com/api/v1/notifications?userId=${userId}`);
       localStorage.setItem('notifications', response.data.length);
       return response.data;
     } catch (error) {

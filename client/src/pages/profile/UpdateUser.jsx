@@ -42,7 +42,7 @@ const UpdateUser = () => {
     }
 
     try {
-      const response = await axios.put('/api/v1/update-user', data, {
+      const response = await axios.put('https://ai-powered-productivity-assistant.onrender.com/api/v1/update-user', data, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

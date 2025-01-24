@@ -22,7 +22,7 @@ const AiAssistant = () => {
 
           try {
             // Fetch weather data using latitude and longitude
-            const response = await axios.get("/api/v1/weather", {
+            const response = await axios.get("https://ai-powered-productivity-assistant.onrender.com/api/v1/weather", {
               params: { lat: latitude, lon: longitude },
             });
             setWeather(response.data);
@@ -38,7 +38,7 @@ const AiAssistant = () => {
           );
           // Fallback to a default location
           axios
-            .get("/api/v1/weather", { params: { location: "Khartoum" } })
+            .get("https://ai-powered-productivity-assistant.onrender.com/api/v1/weather", { params: { location: "Khartoum" } })
             .then((response) => setWeather(response.data));
         }
       );
@@ -46,13 +46,13 @@ const AiAssistant = () => {
       setLocationError("Geolocation is not supported by your browser.");
       // Fallback to a default location
       axios
-        .get("/api/v1/weather", { params: { location: "Khartoum" } })
+        .get("https://ai-powered-productivity-assistant.onrender.com/api/v1/weather", { params: { location: "Khartoum" } })
         .then((response) => setWeather(response.data));
     }
 
     // Fetch AI insights
     axios
-      .post("/api/v1/ai-assistant", { tasks })
+      .post("https://ai-powered-productivity-assistant.onrender.com/api/v1/ai-assistant", { tasks })
       .then((response) => setAiInsights(response.data));
   }, []);
 
