@@ -11,6 +11,7 @@ const openai = new OpenAI({ apiKey: openaiAPI });
 export const generateInsights = async (userId) => {
   const cacheKey = `ai_insights_${userId}`; // Cache key specific to the user
   const lastModifiedKey = `tasks_last_modified_${userId}`; // Cache key for user's tasks
+  console.log('user id is :', userId);
 
   try {
     // Fetch tasks that are not completed and have not passed their due date
@@ -19,12 +20,13 @@ export const generateInsights = async (userId) => {
     const tasks = await TaskModel.find(
       { 
         userId,
-        completed: false,
-        dueDate: { $gte: currentDate }  // Filter tasks with dueDate in the future or today
+        // completed: false,
+        // dueDate: { $gte: currentDate }  // Filter tasks with dueDate in the future or today
       },
       { title: 1, dueDate: 1, priority: 1, lastModified: 1 }
     ).lean();
 
+    console.log('tasks :', tasks)
     // If no tasks are found, return a friendly message
     if (tasks.length === 0) {
       return "No tasks scheduled for today. Take a break and relax!";

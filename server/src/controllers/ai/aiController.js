@@ -3,7 +3,6 @@ import { generateInsights } from "../../services/openAiService.js";
 export const generateAiInsights = async (req, res) => {
   try {
     const userId = req.user.id; // Assuming you have user information from middleware (e.g., JWT auth)
-    console.log(userId);
     if (!userId) {
       return res.status(400).json({ error: "User ID is required." });
     }
