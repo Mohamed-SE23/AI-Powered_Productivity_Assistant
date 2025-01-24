@@ -2,9 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const serverUrl = process.env.NODE_ENV === 'production'
-  ? 'https://ai-powered-productivity-assistant.onrender.com/api/v1'
-  : '/api/v1'; // Proxy only used during development
+const serverUrl = process.env.NODE_ENV === 'https://ai-powered-productivity-assistant.onrender.com/api/v1'; // Proxy only used during development
 
 // get the token 
 const user = JSON.parse(localStorage.getItem('user'));
