@@ -5,6 +5,10 @@ import { signup, signin, deleteUserController } from '../controllers/authControl
 import { updateUserController } from '../controllers/updateUserController.js';
 import { resetPasswordController } from '../controllers/resetPasswordController.js';
 import { protect } from '../middleware/authMiddleware.js';
+import {
+  requestPasswordReset,
+  verifyOtpAndResetPassword,
+} from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -26,6 +30,9 @@ router.post('/signup', upload.single('profile_pic'),signup);
 router.post('/signin', signin);
 router.put('/update-user', protect, upload.single('profile_pic'), updateUserController);
 router.put('/reset-password', protect, resetPasswordController);
+router.post("/request-reset", requestPasswordReset); // Request OTP
+router.post("/reset-otp-password", verifyOtpAndResetPassword); // Verify OTP & Reset Password
+
 router.delete('/delete-account', protect, deleteUserController);
 
 export default router;

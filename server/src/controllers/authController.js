@@ -1,4 +1,7 @@
+import { sendOtp, verifyOtp } from "../services/otpService.js";
+import User from "../models/User.js";
 import { createUser, deleteUser, loginUser } from '../services/authService.js';
+import bcrypt from "bcrypt";
 
 // Creating a new user
 export const signup = async (req, res) => {
@@ -54,6 +57,36 @@ export const signin = async (req, res) => {
     });
   } catch (error) {
     return res.status(401).json({ message: error.message });
+  }
+};
+
+// ********************************* Reset password via otp ***************************************************
+export const requestPasswordReset = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ error: "User not found." });
+
+    await sendOtp(email);
+    return res.status(200).json({ message: "OTP sent to your email." });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const verifyOtpAndResetPassword = async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    await verifyOtp(email, otp);
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await User.updateOne({ email }, { $set: { password: hashedPassword } });
+
+    return res.status(200).json({ message: "Password reset successful." });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
   }
 };
 
