@@ -26,7 +26,7 @@ export const deleteNotification = createAsyncThunk(
 
       if (!token) throw new Error('Authentication token is missing');
 
-      const response = await axios.delete(`/api/v1/notifications/${notificationId}`, {
+      const response = await axios.delete(`https://ai-powered-productivity-assistant.onrender.com/api/v1/notifications/${notificationId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return notificationId; // Return the ID of the deleted notification

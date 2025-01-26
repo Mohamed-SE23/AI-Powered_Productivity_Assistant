@@ -23,14 +23,27 @@ const Typewriter = ({ text }) => {
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, [text]);
 
-    // Remove "undefined" from the end of the displayedText if it occurs
-    const cleanedText = displayedText.endsWith("undefined")
+  // Function to parse and apply bold formatting for words between "**"
+  const formatText = (text) => {
+    const parts = text.split(/(\*\*.*?\*\*)/); // Split by **...**
+    return parts.map((part, i) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return (
+          <strong key={i}>{part.replace(/\*\*/g, "")}</strong> // Remove "**" and apply bold
+        );
+      }
+      return part; // Return normal text
+    });
+  };
+
+  // Remove "undefined" from the end of the displayedText if it occurs
+  const cleanedText = displayedText.endsWith("undefined")
     ? displayedText.slice(0, -9) // Remove "undefined" word
     : displayedText;
 
   return (
     <div className="typewriter">
-      <span>{cleanedText}</span>
+      <span>{formatText(cleanedText)}</span>
     </div>
   );
 };
