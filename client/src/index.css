@@ -50,8 +50,8 @@
   }
 
   .bg-theme-cart {
-    @apply bg-gradient-to-b from-[#ff7a57] 
-    to-[#ff7a75] shadow-sm shadow-[#ff7a75];
+    @apply bg-gradient-to-l from-[#1dd4cb] 
+    to-blue-500 shadow-sm shadow-[#1dd4cb];
   }
 
     /* button */

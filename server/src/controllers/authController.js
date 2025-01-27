@@ -1,7 +1,7 @@
 import { sendOtp, verifyOtp } from "../services/otpService.js";
 import User from "../models/User.js";
 import { createUser, deleteUser, loginUser } from '../services/authService.js';
-import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // Creating a new user
 export const signup = async (req, res) => {
@@ -75,18 +75,34 @@ export const requestPasswordReset = async (req, res) => {
   }
 };
 
+// verify otp
 export const verifyOtpAndResetPassword = async (req, res) => {
   try {
-    const { email, otp, newPassword } = req.body;
+    const { email, otp } = req.body;
 
+    // Verify OTP
     await verifyOtp(email, otp);
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    await User.updateOne({ email }, { $set: { password: hashedPassword } });
+    // Fetch user data
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found." });
 
-    return res.status(200).json({ message: "Password reset successful." });
+    // Generate a token (JWT)
+    const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
+      expiresIn: "15m", // Token valid for 15 minutes
+    });
+
+    return res.status(200).json({
+      message: "OTP verified successfully.",
+      user: {
+        token,
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      },
+    });
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({ message: error.message });
   }
 };
 

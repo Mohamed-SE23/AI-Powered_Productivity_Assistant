@@ -29,3 +29,16 @@ export const resetPassword = async (userId, { currentPassword, newPassword }) =>
     }
   };
   
+// reset password via otp
+export const resetOtpPassword = async (userId, newPassword) => {
+  try {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the user's password
+    await User.updateOne({ _id: userId }, { $set: { password: hashedPassword } });
+  
+    return { message: "Password reset successful." };
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

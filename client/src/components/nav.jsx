@@ -6,6 +6,7 @@ import Signup from "../pages/signup/Signup";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../pages/profile/Profile";
 import Notifications from "../pages/notifications/Notifications";
+import ResetPassword from "../pages/ResetPassword/ResetPassword";
 
 export const nav = [
     {
@@ -34,6 +35,13 @@ export const nav = [
         name: "Sign up",
         element: <Signup />,
         isMenu: true,
+        isPrivate: false,
+      },
+    {
+        path: "/reset-password",
+        name: "Reset Password",
+        element: <ResetPassword />,
+        isMenu: false,
         isPrivate: false,
       },
     {

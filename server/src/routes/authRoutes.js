@@ -3,7 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import { signup, signin, deleteUserController } from '../controllers/authController.js';
 import { updateUserController } from '../controllers/updateUserController.js';
-import { resetPasswordController } from '../controllers/resetPasswordController.js';
+import { resetOtpPasswordController, resetPasswordController } from '../controllers/resetPasswordController.js';
 import { protect } from '../middleware/authMiddleware.js';
 import {
   requestPasswordReset,
@@ -31,7 +31,8 @@ router.post('/signin', signin);
 router.put('/update-user', protect, upload.single('profile_pic'), updateUserController);
 router.put('/reset-password', protect, resetPasswordController);
 router.post("/request-reset", requestPasswordReset); // Request OTP
-router.post("/reset-otp-password", verifyOtpAndResetPassword); // Verify OTP & Reset Password
+router.post("/verify-otp", verifyOtpAndResetPassword); // Verify OTP & Reset Password
+router.put('/reset-otp-password', protect, resetOtpPasswordController);
 
 router.delete('/delete-account', protect, deleteUserController);
 

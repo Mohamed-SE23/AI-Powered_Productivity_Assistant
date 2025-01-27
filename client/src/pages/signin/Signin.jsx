@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -102,6 +102,15 @@ const Signin = () => {
                             {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
                         </span>
                         {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+                                      {/* Forgot password link */}
+                    <div className="mt-2 text-right">
+                        <Link
+                        to="/reset-password"
+                        className="text-sm text-indigo-600 hover:text-indigo-500"
+                        >
+                        Forgot your password?
+                        </Link>
+                    </div>
                     </div>
                     <div className="flex space-x-4">
                         <button

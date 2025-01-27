@@ -8,7 +8,7 @@ export const AuthWrapper = () => {
     const location = useLocation();
 
     useEffect(() => {
-        if (location.pathname === '/signin' || location.pathname === '/signup') {
+        if (location.pathname === '/signin' || location.pathname === '/signup' || location.pathname === '/reset-password') {
             setShowNav(false);
         } else {
             setShowNav(true);
