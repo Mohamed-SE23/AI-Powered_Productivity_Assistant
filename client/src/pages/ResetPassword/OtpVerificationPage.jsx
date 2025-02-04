@@ -103,7 +103,7 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
           {otp.map((digit, index) => (
             <input
               key={index}
-              type="text"
+              type="number"
               maxLength="1"
               value={digit}
               onChange={(e) => handleChange(e.target, index)}

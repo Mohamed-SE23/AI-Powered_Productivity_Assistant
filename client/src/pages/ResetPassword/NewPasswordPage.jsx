@@ -27,8 +27,7 @@ const NewPasswordStep = () => {
     try {
       setLoading(true);
       const token = user.token;
-      console.log(token)
-
+      
       const passwordData = new FormData();
       passwordData.append('newPassword', password);
       
