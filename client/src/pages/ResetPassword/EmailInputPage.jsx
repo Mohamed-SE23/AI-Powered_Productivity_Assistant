@@ -40,7 +40,7 @@ const handleBack =() => {
   return (
     <>
     {/* {loading && <PageLoading />} */}
-    <div>
+    <div className='md:-mt-20'>
       <h2 className="text-2xl font-bold text-center mb-4">Reset Password</h2>
       <p className="text-center text-gray-600 mb-4">Enter your email to receive the reset code</p>
       <form onSubmit={handleSubmit}>

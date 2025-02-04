@@ -27,7 +27,7 @@ const NewPasswordStep = () => {
     try {
       setLoading(true);
       const token = user.token;
-      
+
       const passwordData = new FormData();
       passwordData.append('newPassword', password);
       
@@ -51,7 +51,7 @@ const NewPasswordStep = () => {
   return (
     <>
     {/* {loading && <PageLoading />} */}
-    <div>
+    <div className='md:-mt-20'>
       <h2 className="text-2xl font-bold text-center mb-4">Set New Password</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">

@@ -95,7 +95,7 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
   return (
     <>
     {/* {loading && <PageLoading />} */}
-    <div>
+    <div className='md:-mt-20'>
       <h2 className="text-2xl font-bold text-center mb-4">Verification code</h2>
       <p className="text-center text-gray-600 mb-4">Enter the 6-digit code we sent to your email.</p>
       <form onSubmit={handleSubmit}>
