@@ -22,40 +22,40 @@ const AiAssistant = () => {
 
   useEffect(() => {
     // Get user's current location
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition(
-    //     async (position) => {
-    //       const { latitude, longitude } = position.coords;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
 
-    //       try {
-    //         // Fetch weather data using latitude and longitude
-    //         const response = await axios.get("https://ai-powered-productivity-assistant.onrender.com/api/v1/weather", {
-    //           params: { lat: latitude, lon: longitude },
-    //         });
-    //         setWeather(response.data);
-    //       } catch (error) {
-    //         console.error("Error fetching weather data:", error.message);
-    //         setWeather(null);
-    //       }
-    //     },
-    //     (error) => {
-    //       console.error("Error getting location:", error.message);
-    //       setLocationError(
-    //         "Unable to retrieve location. Using default location."
-    //       );
-    //       // Fallback to a default location
-    //       axios
-    //         .get("https://ai-powered-productivity-assistant.onrender.com/api/v1/weather", { params: { location: "Khartoum" } })
-    //         .then((response) => setWeather(response.data));
-    //     }
-    //   );
-    // } else {
-    //   setLocationError("Geolocation is not supported by your browser.");
-    //   // Fallback to a default location
-    //   axios
-    //     .get("https://ai-powered-productivity-assistant.onrender.com/api/v1/weather", { params: { location: "Khartoum" } })
-    //     .then((response) => setWeather(response.data));
-    // }
+          try {
+            // Fetch weather data using latitude and longitude
+            const response = await axios.get("https://ai-powered-productivity-assistant.onrender.com/api/v1/weather", {
+              params: { lat: latitude, lon: longitude },
+            });
+            setWeather(response.data);
+          } catch (error) {
+            console.error("Error fetching weather data:", error.message);
+            setWeather(null);
+          }
+        },
+        (error) => {
+          console.error("Error getting location:", error.message);
+          setLocationError(
+            "Unable to retrieve location. Using default location."
+          );
+          // Fallback to a default location
+          axios
+            .get("https://ai-powered-productivity-assistant.onrender.com/api/v1/weather", { params: { location: "Khartoum" } })
+            .then((response) => setWeather(response.data));
+        }
+      );
+    } else {
+      setLocationError("Geolocation is not supported by your browser.");
+      // Fallback to a default location
+      axios
+        .get("https://ai-powered-productivity-assistant.onrender.com/api/v1/weather", { params: { location: "Khartoum" } })
+        .then((response) => setWeather(response.data));
+    }
 
     // Fetch AI insights
     axios

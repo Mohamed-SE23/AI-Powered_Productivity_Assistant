@@ -6,14 +6,29 @@ export const fetchWeather = async (params) => {
       throw new Error("Weather API key is missing.");
     }
 
-    if (!params.lat || !params.lon) {
+    let lat, lon;
+
+    if (params.lat && params.lon) {
+      lat = params.lat;
+      lon = params.lon;
+    } else if (params.location) {
+      // Convert the location name to coordinates.
+      // For example, you can use a geocoding API or a static mapping.
+      // Here’s a simple static example for "Khartoum":
+      if (params.location.toLowerCase() === "khartoum") {
+        lat = 15.5007;
+        lon = 32.5599;
+      } else {
+        throw new Error("Unable to determine coordinates from location.");
+      }
+    } else {
       throw new Error("Latitude and Longitude are required.");
     }
-    
+
     const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather`, {
       params: {
-        lat: params.lat,
-        lon: params.lon,
+        lat,
+        lon,
         appid: process.env.WEATHER_API_KEY,
         units: "metric",
       },
