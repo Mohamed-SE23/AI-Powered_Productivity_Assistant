@@ -24,8 +24,6 @@ export const sendOtp = async (email) => {
 
 export const verifyOtp = async (email, providedOtp) => {
   const otpRecord = await OtpModel.findOne({ email }).sort({ createdAt: -1 });
-  console.log('otpRecord : ', otpRecord, typeof(otpRecord));
-  console.log('providedOtp : ', providedOtp, typeof(providedOtp));
   if (!otpRecord) throw new Error("OTP not found. Please request again.");
   if (String(otpRecord.otp) !== String(providedOtp)) throw new Error("Invalid OTP.");
 

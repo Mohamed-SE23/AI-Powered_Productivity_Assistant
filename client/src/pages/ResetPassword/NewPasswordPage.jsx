@@ -4,6 +4,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 // import PageLoading from '../../components/reusable/PageLoading';
 import { selectCurrentUser } from '../../app/UserInfo';
+import { useNavigate } from 'react-router-dom';
 
 const NewPasswordStep = () => {
   const [password, setPassword] = useState('');
@@ -11,6 +12,7 @@ const NewPasswordStep = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const user = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,11 +27,12 @@ const NewPasswordStep = () => {
     try {
       setLoading(true);
       const token = user.token;
+      console.log(token)
 
       const passwordData = new FormData();
       passwordData.append('newPassword', password);
       
-      await axios.post('/api/v1/password-reset', passwordData, {
+      await axios.put('https://ai-powered-productivity-assistant.onrender.com/api/v1/reset-otp-password', passwordData, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -38,6 +41,7 @@ const NewPasswordStep = () => {
       });
       setLoading(false)
       toast.success('Password reset successful!');
+      navigate('/signin')
     } catch (err) {
       setLoading(false)
       setError('Failed to reset password');

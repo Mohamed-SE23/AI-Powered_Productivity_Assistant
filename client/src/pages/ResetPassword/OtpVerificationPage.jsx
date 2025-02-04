@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { setUser } from '../../app/UserInfo';
+import { setUser } from '../../app/UserInfo.js';
 // import PageLoading from '../../components/reusable/PageLoading';
 
 const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
@@ -51,8 +51,8 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
     try {
       setLoading(true);
       const otpCode = otp.join('');
-      const otpData = {otpCode: otpCode, email: email}
-      const response = await axios.post('/api/v1/verify-otp', otpData, {
+      const otpData = {otp: otpCode, email: email}
+      const response = await axios.post('https://ai-powered-productivity-assistant.onrender.com/api/v1/verify-otp', otpData, {
         headers: { 
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -60,8 +60,8 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
         },
       });
       setLoading(false);
-      dispatch(setUser(response.data.data))
-      console.log(response.data.data)
+      dispatch(setUser(response.data.user))
+      console.log(response)
       nextStep(); // Move to new password step if successful
     } catch (err) {
       setLoading(false);
@@ -75,7 +75,7 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
     try {
       setLoading(true);
       const emailData = {email: email}
-      const response = await axios.post('/api/v1/request-reset', emailData, {
+      const response = await axios.post('https://ai-powered-productivity-assistant.onrender.com/api/v1/request-reset', emailData, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

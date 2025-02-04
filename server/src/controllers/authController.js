@@ -78,10 +78,10 @@ export const requestPasswordReset = async (req, res) => {
 // verify otp
 export const verifyOtpAndResetPassword = async (req, res) => {
   try {
-    const { email, otpCode } = req.body;
+    const { email, otp } = req.body;
 
     // Verify OTP
-    await verifyOtp(email, otpCode);
+    await verifyOtp(email, otp);
 
     // Fetch user data
     const user = await User.findOne({ email });

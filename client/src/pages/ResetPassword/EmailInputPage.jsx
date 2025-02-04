@@ -20,7 +20,7 @@ const handleBack =() => {
 
       setLoading(true);
       const emailData = {email: email}
-      const response = await axios.post("/api/v1/request-reset", emailData, {
+      const response = await axios.post("https://ai-powered-productivity-assistant.onrender.com/api/v1/request-reset", emailData, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
