@@ -3,7 +3,7 @@ import { generateOtp } from "../utils/generateOtp.js";
 import { sendEmail } from "./emailService.js";
 import { getOtpTemplate } from "./emails/templateService.js"; // Import the helper function
 
-export const sendOtp = async (email) => { // FOR TESTING
+export const sendOtp = async (email) => {
   const otp = generateOtp();
 
   // Optionally, save OTP to the database:
@@ -24,9 +24,10 @@ export const sendOtp = async (email) => { // FOR TESTING
 
 export const verifyOtp = async (email, providedOtp) => {
   const otpRecord = await OtpModel.findOne({ email }).sort({ createdAt: -1 });
-
+  console.log('otpRecord : ', otpRecord, typeof(otpRecord));
+  console.log('providedOtp : ', providedOtp, typeof(providedOtp));
   if (!otpRecord) throw new Error("OTP not found. Please request again.");
-  if (otpRecord.otp !== providedOtp) throw new Error("Invalid OTP.");
+  if (String(otpRecord.otp) !== String(providedOtp)) throw new Error("Invalid OTP.");
 
   return true;
 };

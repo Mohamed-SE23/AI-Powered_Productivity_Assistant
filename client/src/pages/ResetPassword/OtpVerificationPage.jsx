@@ -52,7 +52,7 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
       setLoading(true);
       const otpCode = otp.join('');
       const otpData = {otpCode: otpCode, email: email}
-      const response = await axios.post('/api/v1/otp-verify', otpData, {
+      const response = await axios.post('/api/v1/verify-otp', otpData, {
         headers: { 
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

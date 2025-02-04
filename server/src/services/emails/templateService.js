@@ -24,4 +24,3 @@ export const getOtpTemplate = async (otp) => {
 
   return template;
 };
-getOtpTemplate('888939')
