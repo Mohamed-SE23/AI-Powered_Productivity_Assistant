@@ -22,8 +22,6 @@ export const sendOtp = async (email) => { // FOR TESTING
   return otp;
 };
 
-sendOtp();
-
 export const verifyOtp = async (email, providedOtp) => {
   const otpRecord = await OtpModel.findOne({ email }).sort({ createdAt: -1 });
 
