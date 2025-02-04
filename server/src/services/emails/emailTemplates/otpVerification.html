@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        padding: 20px;
+      }
+      .container {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        max-width: 600px;
+        margin: auto;
+      }
+      .otp {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+      }
+      .footer {
+        margin-top: 20px;
+        font-size: 12px;
+        color: #777;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>AI PPA OTP Verification</h2>
+      <p>Your OTP for password reset is:</p>
+      <p class="otp">{{otp}}</p>
+      <p>This OTP will expire in 5 minutes.</p>
+      <p>If you did not request this, please ignore this email.</p>
+    </div>
+    <div class="footer">
+      &copy; {{year}} AI PPA. All rights reserved.
+    </div>
+  </body>
+</html>
