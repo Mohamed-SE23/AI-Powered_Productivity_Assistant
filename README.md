@@ -77,13 +77,18 @@ This is the backend for the AI-Powered Productivity Assistant, built using Node.
    - Add the following:
      ```env
      PORT=5000
+     OPENAI=<your-openAi-api_key>
      MONGO_URI=<your-mongodb-atlas-uri>
-     REDIS_HOST=<your-redis-host>
-     REDIS_PORT=<your-redis-port>
-     REDIS_PASSWORD=<your-redis-password>
-     JWT_SECRET=<your-jwt-secret>
+     REDIS_URL=<your-redis-url>
+     JWT_SECRET=<your-jwt-secret-key>
+     WEATHER_API_KEY=<your-weather-api-key>
+     EmailUSER=<your-email-application-user>
+     EmailPASS=<your-email-application-password>
      ```
-
+   - make sure you prepared all .env variables.
+   - first run your mongoDB atlas server and copy the URI to MONGO_URI in .env file.
+   - install redis server and run it before running the project server.
+   - copy the redis url after you run it and then sign it to the variable REDIS_URL in .env
 4. Start the server:
    ```bash
    npm run dev
@@ -103,7 +108,7 @@ server/
 │   └── index.js        # Main server entry point
 ├── config/             # Configuration files (e.g., Redis, database)
 ├── package.json        # Project metadata and scripts
-├── .env.example        # Example environment variables file
+├── .env                # Example environment variables file
 └── README.md           # Documentation
 ```
 
