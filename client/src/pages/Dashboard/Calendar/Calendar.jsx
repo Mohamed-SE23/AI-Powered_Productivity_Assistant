@@ -3,12 +3,13 @@ import axios from "axios";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { server } from "../../../config";
 
 const localizer = momentLocalizer(moment);
 
 const CalendarPage = () => {
   const [events, setEvents] = useState([]);
-  const [view, setView] = useState(Views.MONTH); // Default view is monthly
+  const view = Views.MONTH; // Default view is monthly
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -16,7 +17,7 @@ const CalendarPage = () => {
       const userId = user?.id;
 
       try {
-        const { data } = await axios.get("https://ai-powered-productivity-assistant.onrender.com/api/v1/tasks", {
+        const { data } = await axios.get(`${server}/api/v1/tasks`, {
           params: { userId },
         });
 

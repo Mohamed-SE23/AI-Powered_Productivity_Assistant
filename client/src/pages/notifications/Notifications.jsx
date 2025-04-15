@@ -11,15 +11,15 @@ const Notifications = () => {
   const dispatch = useDispatch();
   const userId = useSelector(selectCurrentUser).id;
 
-  const [notifications, setNotifications] = useState(notificationsData);
+  // const [notifications, setNotifications] = useState(notificationsData);
   const [filter, setFilter] = useState("all"); // Filter options: all, reminders, insights
 
-  const handleMarkAllAsRead = () => {
-    setNotifications((prev) =>
-      prev.map((notif) => ({ ...notif, read: true }))
-    );
-    toast.success("All notifications marked as read!");
-  };
+  // const handleMarkAllAsRead = () => {
+  //   setNotifications((prev) =>
+  //     prev.map((notif) => ({ ...notif, read: true }))
+  //   );
+  //   toast.success("All notifications marked as read!");
+  // };
 
   // handle delete notifications
   const handleDelete = (id) => {

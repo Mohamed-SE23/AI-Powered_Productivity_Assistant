@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser, setUserAuthenticated } from "../../app/UserInfo";
+import { server } from "../../config";
 
 const Signin = () => {
     const [formData, setFormData] = useState({
@@ -49,7 +50,7 @@ const Signin = () => {
             setLoading(true); // Start loading
       
             try {
-              const response = await axios.post('https://ai-powered-productivity-assistant.onrender.com/api/v1/signin', data, {
+              const response = await axios.post(`${server}/api/v1/signin`, data, {
                 headers: {
                   'Content-Type': 'application/json',
                   'Access-Control-Allow-Origin': '*',

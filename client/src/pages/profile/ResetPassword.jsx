@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../app/UserInfo';
 import toast from 'react-hot-toast';
+import { server } from '../../config';
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ const ResetPassword = () => {
 
     try {
       const response = await axios.put(
-        'https://ai-powered-productivity-assistant.onrender.com/api/v1/reset-password',
+        `${server}/api/v1/reset-password`,
         {
           currentPassword: formData.currentPassword,
           newPassword: formData.newPassword,

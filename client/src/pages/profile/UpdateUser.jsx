@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearUser, selectCurrentUser, setUser, setUserAuthenticated } from '../../app/UserInfo';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { server } from '../../config';
 
 const UpdateUser = () => {
   const user = useSelector(selectCurrentUser);
@@ -42,7 +43,7 @@ const UpdateUser = () => {
     }
 
     try {
-      const response = await axios.put('https://ai-powered-productivity-assistant.onrender.com/api/v1/update-user', data, {
+      const response = await axios.put(`${server}/api/v1/update-user`, data, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -73,7 +74,7 @@ const UpdateUser = () => {
     }
 
     try {
-      const response = await axios.delete('https://ai-powered-productivity-assistant.onrender.com/api/v1/delete-account', {
+      const response = await axios.delete(`${server}/api/v1/delete-account`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

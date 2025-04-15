@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { setUser } from '../../app/UserInfo.js';
+import { server } from '../../config/index.js';
 // import PageLoading from '../../components/reusable/PageLoading';
 
 const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
@@ -52,7 +53,7 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
       setLoading(true);
       const otpCode = otp.join('');
       const otpData = {otp: otpCode, email: email}
-      const response = await axios.post('https://ai-powered-productivity-assistant.onrender.com/api/v1/verify-otp', otpData, {
+      const response = await axios.post(`${server}/api/v1/verify-otp`, otpData, {
         headers: { 
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -75,7 +76,7 @@ const OtpVerificationStep = ({ email, setEmail, nextStep }) => {
     try {
       setLoading(true);
       const emailData = {email: email}
-      const response = await axios.post('https://ai-powered-productivity-assistant.onrender.com/api/v1/request-reset', emailData, {
+      const response = await axios.post(`${server}/api/v1/request-reset`, emailData, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

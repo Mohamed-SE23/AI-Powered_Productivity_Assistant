@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { server } from '../config';
 
-const serverUrl = process.env.NODE_ENV === 'production'
-  ? 'https://ai-powered-productivity-assistant.onrender.com/api/v1'
-  : '/api/v1'; // Proxy only used during development
+// const serverUrl = process.env.NODE_ENV === 'production'
+//   ? 'https://ai-powered-productivity-assistant.onrender.com/api/v1'
+//   : '/api/v1'; // Proxy only used during development
 
 // get the token 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -17,7 +18,7 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
     throw new Error("User ID is not available.");
   }
 
-  const response = await axios.get(`${serverUrl}/tasks`, {
+  const response = await axios.get(`${server}/api/v1/tasks`, {
     params: { userId },
   });
   return response.data.tasks;
@@ -32,7 +33,7 @@ export const getTask = createAsyncThunk('tasks/getTask', async (taskId) => {
     throw new Error("User token is not available.");
   }
 
-  const response = await axios.get(`${serverUrl}/task/${taskId}`, {
+  const response = await axios.get(`${server}/api/v1/task/${taskId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -49,7 +50,7 @@ export const createTask = createAsyncThunk('tasks/createTask', async (task) => {
     throw new Error("User token is not available.");
   }
 
-  const response = await axios.post(`${serverUrl}/task/create`, task, {
+  const response = await axios.post(`${server}/api/v1/task/create`, task, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -67,7 +68,7 @@ export const updateTask = createAsyncThunk('tasks/updateTask', async (task) => {
     throw new Error("User token is not available.");
   }
 
-  const response = await axios.patch(`${serverUrl}/task/${task._id}`, task, {
+  const response = await axios.patch(`${server}/api/v1/task/${task._id}`, task, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -85,7 +86,7 @@ export const deleteTask = createAsyncThunk('tasks/deleteTask', async (taskId) =>
     throw new Error("User token is not available.");
   }
   
-  await axios.delete(`${serverUrl}/task/${taskId}`, {
+  await axios.delete(`${server}/api/v1/task/${taskId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

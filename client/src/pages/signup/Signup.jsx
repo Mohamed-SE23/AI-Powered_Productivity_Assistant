@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { server } from "../../config";
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -63,7 +64,7 @@ const Signup = () => {
             setLoading(true); // Start loading
 
             try {
-                const response = await axios.post("https://ai-powered-productivity-assistant.onrender.com/api/v1/signup", data, {
+                const response = await axios.post(`${server}/api/v1/signup`, data, {
                     headers: {
                         "Content-Type": "multipart/form-data", // Set the correct header
                         "Access-Control-Allow-Origin": "*",

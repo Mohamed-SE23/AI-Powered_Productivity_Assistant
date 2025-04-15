@@ -3,6 +3,7 @@ import axios from 'axios';
 // import PageLoading from '../../components/reusable/PageLoading';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { server } from '../../config';
 
 const EmailInputStep = ({ email, setEmail, nextStep }) => {
   const [error, setError] = useState('');
@@ -20,7 +21,7 @@ const handleBack =() => {
 
       setLoading(true);
       const emailData = {email: email}
-      const response = await axios.post("https://ai-powered-productivity-assistant.onrender.com/api/v1/request-reset", emailData, {
+      const response = await axios.post(`${server}/api/v1/request-reset`, emailData, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { container, item } from '../../../utils/animation';
-import { selectAllTasks, selectPriority, setModalMode, setPriority } from '../../../app/tasksSlice';
+import { selectAllTasks, selectPriority, setPriority } from '../../../app/tasksSlice';
 import { filteredTasks, openModalForAdd } from '../../../utils/utilities';
 import Filters from '../../../components/Filters/Filters';
 import TaskItem from '../../../components/TaskItem/TaskItem';

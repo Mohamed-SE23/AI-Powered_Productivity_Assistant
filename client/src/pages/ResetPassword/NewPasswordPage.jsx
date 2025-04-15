@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 // import PageLoading from '../../components/reusable/PageLoading';
 import { selectCurrentUser } from '../../app/UserInfo';
 import { useNavigate } from 'react-router-dom';
+import { server } from '../../config';
 
 const NewPasswordStep = () => {
   const [password, setPassword] = useState('');
@@ -31,7 +32,7 @@ const NewPasswordStep = () => {
       const passwordData = new FormData();
       passwordData.append('newPassword', password);
       
-      await axios.put('https://ai-powered-productivity-assistant.onrender.com/api/v1/reset-otp-password', passwordData, {
+      await axios.put(`${server}/api/v1/reset-otp-password`, passwordData, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

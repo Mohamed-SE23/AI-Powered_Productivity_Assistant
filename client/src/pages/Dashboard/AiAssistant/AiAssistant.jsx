@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import DailySummary from "./DailySummary";
 import WeatherWidget from "./WeatherWidget";
 import axios from "axios";
+import { server } from "../../../config";
 import { selectAllTasks } from "../../../app/tasksSlice";
 import Typewriter from "../../../components/Typewriter";
 
@@ -29,7 +30,7 @@ const AiAssistant = () => {
 
           try {
             // Fetch weather data using latitude and longitude
-            const response = await axios.get("https://ai-powered-productivity-assistant.onrender.com/api/v1/weather", {
+            const response = await axios.get(`${server}/api/v1/weather`, {
               params: { lat: latitude, lon: longitude },
             });
             setWeather(response.data);
@@ -45,7 +46,7 @@ const AiAssistant = () => {
           );
           // Fallback to a default location
           axios
-            .get("https://ai-powered-productivity-assistant.onrender.com/api/v1/weather", { params: { location: "Khartoum" } })
+            .get(`${server}/api/v1/weather`, { params: { location: "Khartoum" } })
             .then((response) => setWeather(response.data));
         }
       );
@@ -53,13 +54,13 @@ const AiAssistant = () => {
       setLocationError("Geolocation is not supported by your browser.");
       // Fallback to a default location
       axios
-        .get("https://ai-powered-productivity-assistant.onrender.com/api/v1/weather", { params: { location: "Khartoum" } })
+        .get(`${server}/api/v1/weather`, { params: { location: "Khartoum" } })
         .then((response) => setWeather(response.data));
     }
 
     // Fetch AI insights
     axios
-      .post("https://ai-powered-productivity-assistant.onrender.com/api/v1/ai-assistant", { tasks },
+      .post(`${server}/api/v1/ai-assistant`, { tasks },
         {
           headers: {
             Authorization: `Bearer ${token}`,

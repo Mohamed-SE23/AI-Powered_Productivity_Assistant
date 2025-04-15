@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { server } from '../config';
 
 // Async thunk to fetch notifications
 export const fetchNotifications = createAsyncThunk(
   'notifications/fetchNotifications',
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`https://ai-powered-productivity-assistant.onrender.com/api/v1/notifications?userId=${userId}`);
+      const response = await axios.get(`${server}/api/v1/notifications?userId=${userId}`);
       localStorage.setItem('notifications', response.data.length);
       return response.data;
     } catch (error) {
@@ -26,7 +27,7 @@ export const deleteNotification = createAsyncThunk(
 
       if (!token) throw new Error('Authentication token is missing');
 
-      const response = await axios.delete(`https://ai-powered-productivity-assistant.onrender.com/api/v1/notifications/${notificationId}`, {
+      const response = await axios.delete(`${server}/api/v1/notifications/${notificationId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return notificationId; // Return the ID of the deleted notification
