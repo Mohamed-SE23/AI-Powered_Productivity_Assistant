@@ -9,7 +9,6 @@ import HamburgerMenu from "./HamburgerMenu";
 
 const Navbar = () => {
   const [navState, setNavState] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // Tracks hamburger menu state
   const location = useLocation();
   const user = useSelector(selectCurrentUser);
 
@@ -45,15 +44,7 @@ const Navbar = () => {
           <div className="flex items-center text-xl text-[#2596DD] font-bold">
             AI<span className="text-[#1DD4CB]">-PPA</span>
           </div>
-
-          {/* Hamburger button for mobile */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className={`md:block hidden text-2xl ${!navState ? 'text-slate-50' : ''}`}
-          >
-            &#9776;
-          </button>
-
+          <HamburgerMenu navState={navState} />
           {/* Full menu for larger screens */}
           <div className="md:hidden flex items-center">
             {user.isAuth ? (
@@ -64,8 +55,8 @@ const Navbar = () => {
                   .filter((r) => r.isMenu)
                   .map((r) =>
                     r.name !== "Sign up" ? (
-                      <li key={r.name} className="grid items-center">
-                        <MenuItems r={r} navState={navState} />
+                      <li key={r.name} className={`${!navState ? 'text-white' : ''} grid items-center active:text-[#1dd4cb]`}>
+                        <MenuItems r={r} />
                       </li>
                     ) : (
                       <li key={r.name} className="grid items-center">
@@ -80,9 +71,6 @@ const Navbar = () => {
           </div>
         </nav>
       </header>
-
-      {/* Hamburger menu */}
-      {menuOpen && <HamburgerMenu navState={navState} nav={nav} closeMenu={() => setMenuOpen(false)} />}
     </>
   );
 };
