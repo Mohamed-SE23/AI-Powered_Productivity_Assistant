@@ -64,7 +64,7 @@ export const openModalForAdd = (dispatch) => {
   // export const profile_url = user.profile_pic?.startsWith('http')
   //                         ? `${profile_pic}`
   //                         : `${server}${user.profile_pic}`;
-  const profile_url = `${profile_pic}`
+  export const profile_url = `${profile_pic}`
     
 //   export const openProfileModal = () => {
 //     setProfileModal(true);
