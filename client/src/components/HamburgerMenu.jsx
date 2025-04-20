@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import {  useState } from 'react'
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectCurrentUser } from "../app/UserInfo";
@@ -7,12 +7,15 @@ import { nav } from "./nav";
 import { MdDashboard } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { selectNotifications } from "../app/Notifications";
+import { profile_url } from "../utils/utilities"
+
 
 const HamburgerMenu = ({ navState }) => {
   const [checked, setChecked] = useState(false);
 
   const user = useSelector(selectCurrentUser);
   const notifications = useSelector(selectNotifications).length;
+
 
   // handleClick event
   const handleClick = () => {
@@ -76,7 +79,7 @@ const HamburgerMenu = ({ navState }) => {
               className="hover:text-[#1DD4CB] active:text-[#1DD4CB] transition flex items-center gap-2 duration-300 ease-in-out"
             >
               <img
-                src={`${user.profile_pic}`}
+                src={`${profile_url}`}
                 alt="profile-img"
                 className="h-8 w-8 rounded-full object-cover"
               />

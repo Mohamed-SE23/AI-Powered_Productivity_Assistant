@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import { useState } from 'react'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUser, selectCurrentUser, setUser, setUserAuthenticated } from '../../app/UserInfo';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { server } from '../../config';
+import { profile_url } from "../../utils/utilities"
 
 const UpdateUser = () => {
   const user = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  
   const [formData, setFormData] = useState({
     username: user?.username || '',
     email: user?.email || '',
-    profilePic: user?.profile_pic || '',
+    profilePic: profile_url || '',
   });
 
   const handleInputChange = (e) => {
@@ -45,6 +47,7 @@ const UpdateUser = () => {
     try {
       const response = await axios.put(`${server}/api/v1/update-user`, data, {
         headers: {
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${user.token}`,
         },
       });
@@ -121,9 +124,9 @@ const UpdateUser = () => {
         {/* Profile Picture Section */}
         <div>
           <label className="block text-gray-700 mb-2">Profile Picture</label>
-          <div className="flex items-center gap-4 sm:flex-col sm:items-start">
+          <div className="flex items-center gap-4 sm:flex-col sm:items-start overflow-x-hidden">
             <img
-              src={formData.profilePic instanceof File ? URL.createObjectURL(formData.profilePic) : `https://ai-powered-productivity-assistant.onrender.com${formData.profilePic}`}
+              src={formData.profilePic instanceof File ? URL.createObjectURL(formData.profilePic) : `${formData.profilePic}`}
               alt="Profile"
               className="w-16 h-16 rounded-full object-cover"
             />
@@ -131,7 +134,7 @@ const UpdateUser = () => {
               type="file"
               name="profilePic"
               onChange={handleFileChange}
-              className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
             />
           </div>
         </div>

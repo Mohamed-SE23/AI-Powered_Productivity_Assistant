@@ -1,20 +1,22 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectCurrentUser } from '../app/UserInfo'
+import {  useState } from 'react'
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../app/UserInfo';
 import { MdDashboard } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { NavLink } from 'react-router-dom';
 import { selectNotifications} from '../app/Notifications';
+import { profile_url } from "../utils/utilities"
 // import founder from '../assets/founder.jpg';
 
 const AuthHeader = ({closeMenu}) => {
     const user = useSelector(selectCurrentUser);
     const notifications = useSelector(selectNotifications).length;
 
+
   return (
     <div className='flex items-center justify-center gap-4 md:flex-col md:items-start'>
         <NavLink
-            to={`/${user.id}/dashboard`}
+            to={`/${user?.id}/dashboard`}
             onClick={closeMenu}
             className={({ isActive }) =>
                 isActive
@@ -51,7 +53,7 @@ const AuthHeader = ({closeMenu}) => {
                     : 'hover:text-[#1DD4CB] transition flex items-center gap-2 duration-300 ease-in-out'
             }
         >
-            <img src={`${user.profile_pic}`} alt='profile-img' className='h-8 w-8 rounded-full object-cover'/>
+            <img src={profile_url} alt='profile_pic' className='h-8 w-8 rounded-full object-cover'/>
             <span className='hidden md:block'>Profile</span>
         </NavLink>
     </div>

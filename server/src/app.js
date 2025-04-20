@@ -29,7 +29,8 @@ const allowedOrigins = [
 
 app.use(express.json()); // Parse JSON bodies
 app.use(bodyParser.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 // allow cors origin
 app.use(
@@ -99,7 +100,6 @@ schedule.scheduleJob("*/1 * * * *", async () => {
     console.error("Error creating notifications for tasks:", error);
   }
 });
-
 
 // Routes
 app.use('/api/v1', authRoutes);
