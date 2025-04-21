@@ -23,7 +23,7 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const allowedOrigins = [
-  'http://localhost:5173', // For local development
+  'https://proabdallami.serveo.net', // For local development
   'https://ai-powered-productivity-assistant.vercel.app', // Your Vercel deployment
 ];
 
