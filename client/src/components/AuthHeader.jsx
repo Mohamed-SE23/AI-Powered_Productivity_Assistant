@@ -11,10 +11,11 @@ import { profile_url } from "../utils/utilities"
 const AuthHeader = ({closeMenu}) => {
     const user = useSelector(selectCurrentUser);
     const notifications = useSelector(selectNotifications).length;
+    const profile_pic = profile_url(user?.profile_pic);
 
 
   return (
-    <div className='flex items-center justify-center gap-4 md:flex-col md:items-start'>
+    <div className='flex items-center justify-center gap-4 sm:flex-col sm:items-start'>
         <NavLink
             to={`/${user?.id}/dashboard`}
             onClick={closeMenu}
@@ -41,7 +42,7 @@ const AuthHeader = ({closeMenu}) => {
             <IoIosNotificationsOutline className='w-6 h-6' />
             <span className={notifications === 0 ? 'hidden' : 'absolute -top-1.5 text-slate-100 bg-red-600 text-[10px] w-4 h-4 flex items-center justify-center rounded-full md:left-1'}>
                 {notifications > 9 ? '+9': notifications}</span>
-                <span className='hidden md:block'>Notifications</span>
+                <span className='hidden sm:block'>Notifications</span>
             </div>
         </NavLink>
         <NavLink
@@ -53,8 +54,8 @@ const AuthHeader = ({closeMenu}) => {
                     : 'hover:text-[#1DD4CB] transition flex items-center gap-2 duration-300 ease-in-out'
             }
         >
-            <img src={profile_url} alt='profile_pic' className='h-8 w-8 rounded-full object-cover'/>
-            <span className='hidden md:block'>Profile</span>
+            <img src={profile_pic} alt='profile_pic' className='h-8 w-8 rounded-full object-cover'/>
+            <span className='hidden sm:block'>Profile</span>
         </NavLink>
     </div>
   )

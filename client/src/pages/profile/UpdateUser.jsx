@@ -12,11 +12,12 @@ const UpdateUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const profile_pic = profile_url(user?.profile_pic);
   
   const [formData, setFormData] = useState({
     username: user?.username || '',
     email: user?.email || '',
-    profilePic: profile_url || '',
+    profilePic: profile_pic || '',
   });
 
   const handleInputChange = (e) => {
