@@ -46,7 +46,7 @@ const Navbar = () => {
           </div>
           <HamburgerMenu navState={navState} />
           {/* Full menu for larger screens */}
-          <div className="md:hidden flex items-center">
+          <div className="sm:hidden flex items-center">
             {user.isAuth ? (
               <AuthHeader />
             ) : (

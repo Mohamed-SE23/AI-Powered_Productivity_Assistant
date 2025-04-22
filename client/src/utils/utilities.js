@@ -1,5 +1,7 @@
 import moment from "moment";
 import { setActiveTask, setIsEditing, setModalMode, setTask } from "../app/tasksSlice";
+import profile_pic from "../assets/profile_pic.jpg";
+import { server } from "../config"
 
 // Format the creation time of a task
 export const formatTime = (createdAt) => {
@@ -56,6 +58,13 @@ export const openModalForAdd = (dispatch) => {
     dispatch(setActiveTask(task));
   };
 
+  // set profile picture this works in  localhost and hosting platforms that support read and write file systems
+
+  export const profile_url = (url) =>  url?.startsWith('http')
+                          ? `${profile_pic}`
+                          : `${server}${url}`;
+  // export const profile_url = (url) => `${profile_pic}`;
+    
 //   export const openProfileModal = () => {
 //     setProfileModal(true);
 //   };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import {  useState } from 'react'
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectCurrentUser } from "../app/UserInfo";
@@ -7,12 +7,16 @@ import { nav } from "./nav";
 import { MdDashboard } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { selectNotifications } from "../app/Notifications";
+import { profile_url } from "../utils/utilities"
+
 
 const HamburgerMenu = ({ navState }) => {
   const [checked, setChecked] = useState(false);
 
   const user = useSelector(selectCurrentUser);
   const notifications = useSelector(selectNotifications).length;
+  const profile_pic = profile_url(user?.profile_pic);
+
 
   // handleClick event
   const handleClick = () => {
@@ -20,7 +24,7 @@ const HamburgerMenu = ({ navState }) => {
   }
   return (
     <label>
-      <div className="w-9 h-10 hidden cursor-pointer md:flex md:flex-col md:items-center md:justify-center">
+      <div className="w-9 h-10 hidden cursor-pointer sm:flex sm:flex-col sm:items-center sm:justify-center">
         <input
           className="hidden peer"
           type="checkbox"
@@ -35,7 +39,7 @@ const HamburgerMenu = ({ navState }) => {
         <ul
           className={`${
             checked
-              ? "absolute top-12 right-6 w-40 bg-white hidden md:flex flex-col gap-4 p-6 shadow-lg rounded-md"
+              ? "absolute top-12 right-6 w-40 bg-white hidden sm:flex flex-col gap-4 p-6 shadow-lg rounded-md"
               : "hidden"
           }`}
         >
@@ -76,7 +80,7 @@ const HamburgerMenu = ({ navState }) => {
               className="hover:text-[#1DD4CB] active:text-[#1DD4CB] transition flex items-center gap-2 duration-300 ease-in-out"
             >
               <img
-                src={`${user.profile_pic}`}
+                src={`${profile_pic}`}
                 alt="profile-img"
                 className="h-8 w-8 rounded-full object-cover"
               />
@@ -88,7 +92,7 @@ const HamburgerMenu = ({ navState }) => {
         <ul
           className={`${
             checked
-              ? "absolute top-12 right-6 w-40 bg-white hidden md:flex flex-col gap-4 p-6 shadow-lg rounded-md"
+              ? "absolute top-12 right-6 w-40 bg-white hidden sm:flex flex-col gap-4 p-6 shadow-lg rounded-md"
               : "hidden"
           }`}
         >
@@ -105,38 +109,6 @@ const HamburgerMenu = ({ navState }) => {
           })}
         </ul>
       )}
-      {/* <div className={`${checked ? "absolute top-14 right-6 shadow-lg rounded-md": "hidden"}`}> */}
-      {/* {user.isAuth ? (
-            <div className="hidden md:absolute md:top-16 md:right-8">
-              <AuthHeader />
-            </div>
-            ) : (
-              <ul className="flex flex-col items-start space-y-4">
-                {nav
-                  .filter((r) => r.isMenu)
-                  .map((r) =>
-                    r.name !== "Sign up" ? (
-                      <li 
-                            key={r.name} 
-                            onClick={closeMenu}
-                            className="grid items-center">
-                        <MenuItems 
-                                   r={r} 
-                                   navState={true} />
-                      </li>
-                    ) : (
-                      <li key={r.name} className="grid items-center">
-                        <button 
-                            className="px-4 py-1 text-slate-50 font-semibold bg-[#007bff] rounded hover:bg-[#1dd4cb]">
-                          <Link 
-                            to={"/signup"}>{r.name}</Link>
-                        </button>
-                      </li>
-                    )
-                  )}
-              </ul>
-            )} */}
-      {/* </div> */}
     </label>
   );
 };
