@@ -60,10 +60,10 @@ export const openModalForAdd = (dispatch) => {
 
   // set profile picture this works in  localhost and hosting platforms that support read and write file systems
 
-  // export const profile_url = (url) =>  url?.startsWith('http')
-  //                         ? `${profile_pic}`
-  //                         : `${server}${url}`;
-  export const profile_url = (url) => `${profile_pic}`;
+  export const profile_url = (url) =>  url?.startsWith('http')
+                          ? `${profile_pic}`
+                          : `${server}${url}`;
+  // export const profile_url = (url) => `${profile_pic}`;
     
 //   export const openProfileModal = () => {
 //     setProfileModal(true);
