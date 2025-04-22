@@ -25,6 +25,7 @@ const __dirname = path.dirname(__filename);
 const allowedOrigins = [
   'http://localhost:5173', // For local development
   'https://ai-powered-productivity-assistant.vercel.app', // Your Vercel deployment
+  'https://proabdallami.serveo.net', // serveo hosting
 ];
 
 app.use(express.json()); // Parse JSON bodies
