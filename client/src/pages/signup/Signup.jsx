@@ -4,6 +4,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { server } from "../../config";
+import DarkModeToggle from "../../components/DarkModeToggle";
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -81,10 +82,11 @@ const Signup = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 md:-mt-10">
-            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-[#080818] md:-mt-10">
+            <div className="bg-white dark:bg-[#020024] p-8 rounded-lg shadow-lg max-w-md w-full">
+                <DarkModeToggle className="bg-gray-100 dark:bg-[#080818]" />
                 <h2 className="text-2xl font-bold text-center text-[#1dd4cb]">Sign Up</h2>
-                <p className="text-center text-gray-700 mb-4">
+                <p className="text-center text-gray-700 dark:text-gray-300 mb-4">
                     Already have an account?{" "}
                     <span
                         className="text-[#007bff] cursor-pointer"
@@ -95,51 +97,51 @@ const Signup = () => {
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-gray-700">Username</label>
+                        <label className="block text-gray-700 dark:text-gray-300">Username</label>
                         <input
                             type="text"
                             name="username"
                             placeholder="your username"
                             value={formData.username}
                             onChange={handleInputChange}
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb]"
+                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb] dark:bg-transparent dark:text-white"
                         />
                         {errors.username && (
                             <p className="text-red-500 text-sm mt-1">{errors.username}</p>
                         )}
                     </div>
                     <div>
-                        <label className="block text-gray-700">Email</label>
+                        <label className="block text-gray-700 dark:text-gray-300">Email</label>
                         <input
                             type="email"
                             name="email"
                             placeholder="example@gmail.com"
                             value={formData.email}
                             onChange={handleInputChange}
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb]"
+                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb] dark:bg-transparent dark:text-white"
                         />
                         {errors.email && (
                             <p className="text-red-500 text-sm mt-1">{errors.email}</p>
                         )}
                     </div>
                     <div>
-                        <label className="block text-gray-700">Profile Picture (optional) :</label>
+                        <label className="block text-gray-700 dark:text-gray-300">Profile Picture (optional) :</label>
                         <input
                             type="file"
                             accept="image/*"
                             onChange={handleFileChange}
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb]"
+                            className="w-full file:px-4 file:py-2 text-sm file:bg-gray-100 dark:file:bg-[#080818] file:border-none dark:text-white dark:file:text-white cursor-pointer file:cursor-pointer border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb] "
                         />
                     </div>
                     <div className="relative">
-                        <label className="block text-gray-700">Password</label>
+                        <label className="block text-gray-700 dark:text-gray-300">Password</label>
                         <input
                             type={showPassword ? "text" : "password"}
                             name="password"
                             placeholder="your password"
                             value={formData.password}
                             onChange={handleInputChange}
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb]"
+                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb] dark:bg-transparent dark:text-white"
                         />
                         <span
                             onClick={() => setShowPassword(!showPassword)}
@@ -152,14 +154,14 @@ const Signup = () => {
                         )}
                     </div>
                     <div>
-                        <label className="block text-gray-700">Confirm Password</label>
+                        <label className="block text-gray-700 dark:text-gray-300">Confirm Password</label>
                         <input
                             type={showPassword ? "text" : "password"}
                             name="confirmPassword"
                             placeholder="confirm your password..."
                             value={formData.confirmPassword}
                             onChange={handleInputChange}
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb]"
+                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb] dark:bg-transparent dark:text-white"
                         />
                         {errors.confirmPassword && (
                             <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
@@ -170,14 +172,14 @@ const Signup = () => {
                             type="button"
                             onClick={() => navigate("/")}
                             disabled={loading}
-                            className="w-full bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400"
+                            className="w-full bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-200 py-2 px-4 rounded-lg hover:bg-gray-400"
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-[#007bff] text-white py-2 px-4 rounded-lg hover:bg-[#0056b3]"
+                            className="w-full bg-[#007bff] dark:bg-[#0600c2] text-white py-2 px-4 rounded-lg hover:bg-[#0056b3]"
                         >
                             {loading ? "...Signing up" : "Sign Up"}
                         </button>
