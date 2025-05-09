@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../app/UserInfo";
 import AuthHeader from "./AuthHeader";
 import HamburgerMenu from "./HamburgerMenu";
+import DarkModeToggle from "./DarkModeToggle";
 
 const Navbar = () => {
   const [navState, setNavState] = useState(false);
@@ -44,6 +45,7 @@ const Navbar = () => {
           <div className="flex items-center text-xl text-[#2596DD] font-bold">
             AI<span className="text-[#1DD4CB]">-PPA</span>
           </div>
+          <div className="flex items-center gap-4">
           <HamburgerMenu navState={navState} />
           {/* Full menu for larger screens */}
           <div className="sm:hidden flex items-center">
@@ -68,6 +70,8 @@ const Navbar = () => {
                   )}
               </ul>
             )}
+          </div>
+          <DarkModeToggle className="" />
           </div>
         </nav>
       </header>

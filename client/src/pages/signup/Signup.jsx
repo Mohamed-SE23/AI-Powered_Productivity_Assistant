@@ -82,9 +82,8 @@ const Signup = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-[#080818] md:-mt-10">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-dark-bg md:-mt-10">
             <div className="bg-white dark:bg-[#020024] p-8 rounded-lg shadow-lg max-w-md w-full">
-                <DarkModeToggle className="bg-gray-100 dark:bg-[#080818]" />
                 <h2 className="text-2xl font-bold text-center text-[#1dd4cb]">Sign Up</h2>
                 <p className="text-center text-gray-700 dark:text-gray-300 mb-4">
                     Already have an account?{" "}

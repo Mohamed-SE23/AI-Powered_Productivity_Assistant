@@ -1,26 +1,28 @@
-import { useState, useEffect } from 'react'
-import { FaMoon, FaSun } from 'react-icons/fa'
+import { FaMoon } from 'react-icons/fa'
+import { MdOutlineLightMode } from "react-icons/md";
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTheme, toggleDarkMode } from '../app/darkMode';
 
-export default function DarkModeToggle({className}) {
-  const [darkMode, setDarkMode] = useState(true)
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }, [darkMode])
+export default function DarkModeToggle() {
+  const dispatch = useDispatch();
+  const darkMode = useSelector(selectTheme);
+
+  // toggle darkMode function
+
+  const handleClick = () => {
+    dispatch(toggleDarkMode());
+  }
 
   return (
     <button
-      onClick={() => setDarkMode(!darkMode)}
-      className={`p-2 rounded-full bg-gray-200 dark:bg-gray-800 transition-colors ${className}`}
+      onClick={handleClick}
+      className={`transition-colors`}
     >
       {darkMode ? (
-        <FaSun className="text-yellow-400 w-6 h-6" />
+        <MdOutlineLightMode className="text-yellow-500 w-6 h-6" />
       ) : (
-        <FaMoon className="text-gray-900 w-6 h-6" />
+        <FaMoon className="text-gray-900 bg-gray-100 p-2 rounded-full -rotate-[20deg] w-8 h-8" />
       )}
     </button>
   )
