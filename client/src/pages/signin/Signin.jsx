@@ -6,6 +6,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser, setUserAuthenticated } from "../../app/UserInfo";
 import { server } from "../../config";
+import DarkModeToggle from "../../components/DarkModeToggle";
 
 const Signin = () => {
     const [formData, setFormData] = useState({
@@ -69,32 +70,34 @@ const Signin = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 md:-mt-20">
-            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-dark-bg md:-mt-20">
+            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full dark:bg-[#020024] dark:text-white">
                 <h2 className="text-2xl font-bold text-center text-[#1dd4cb]">Sign In</h2>
                 <p className="text-center text-gray-700 mb-4">
                     New user? <span className="text-[#007bff] cursor-pointer" onClick={() => navigate("/signup")}>Sign up</span>
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-gray-700">Email</label>
+                        <label className="block text-gray-700 dark:text-gray-300">Email</label>
                         <input
                             type="email"
                             name="email"
+                            placeholder="Enter your email"
                             value={formData.email}
                             onChange={handleInputChange}
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb]"
+                            className="w-full px-4 py-2 border rounded-lg focus:border-none focus:outline-none focus:ring-2 focus:ring-[#1dd4cb] dark:bg-transparent dark:text-white"
                         />
                         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                     </div>
                     <div className="relative">
-                        <label className="block text-gray-700">Password</label>
+                        <label className="block text-gray-700 dark:text-gray-100">Password</label>
                         <input
                             type={showPassword ? "text" : "password"}
                             name="password"
+                            placeholder="Your password"
                             value={formData.password}
                             onChange={handleInputChange}
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1dd4cb]"
+                            className="w-full px-4 py-2 border rounded-lg focus:border-none focus:outline-none focus:ring-2 focus:ring-[#1dd4cb] dark:bg-transparent dark:text-white"
                         />
                         <span
                             onClick={() => setShowPassword(!showPassword)}
@@ -107,18 +110,18 @@ const Signin = () => {
                     <div className="mt-2 text-right">
                         <Link
                         to="/reset-password"
-                        className="text-sm text-indigo-600 hover:text-indigo-500"
+                        className="text-sm text-indigo-600 hover:text-indigo-500 dark:text-indigo-300"
                         >
                         Forgot your password?
                         </Link>
                     </div>
                     </div>
                     <div className="flex space-x-4">
-                        <button
+                    <button
                             type="button"
                             onClick={() => navigate("/")}
                             disabled={loading}
-                            className="w-full bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400"
+                            className="w-full bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-200 py-2 px-4 rounded-lg hover:bg-gray-300"
                         >
                             Cancel
                         </button>
