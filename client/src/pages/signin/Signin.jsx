@@ -70,8 +70,8 @@ const Signin = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-[#020024] md:-mt-20">
-            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full dark:bg-dark-bg dark:text-white">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-dark-bg md:-mt-20">
+            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full dark:bg-[#020024] dark:text-white">
                 <h2 className="text-2xl font-bold text-center text-[#1dd4cb]">Sign In</h2>
                 <p className="text-center text-gray-700 mb-4">
                     New user? <span className="text-[#007bff] cursor-pointer" onClick={() => navigate("/signup")}>Sign up</span>
@@ -110,7 +110,7 @@ const Signin = () => {
                     <div className="mt-2 text-right">
                         <Link
                         to="/reset-password"
-                        className="text-sm text-indigo-600 hover:text-indigo-500"
+                        className="text-sm text-indigo-600 hover:text-indigo-500 dark:text-indigo-300"
                         >
                         Forgot your password?
                         </Link>
